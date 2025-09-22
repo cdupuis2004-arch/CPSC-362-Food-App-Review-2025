@@ -1,8 +1,17 @@
-# Web App Project
+# 🌐 Web App Project
 
-## Setup
+## ⚙️ Setup
 
-1. Ensure you have **Python 3.11** installed.
-2. Install project dependencies using:
+1. 🐍 Ensure you have **Python 3.11** installed  
    ```bash
-   pip install -r requirements.txt
+   python --version
+📦 Install project dependencies:
+
+bash
+Copy code
+pip install -r requirements.txt
+▶️ Run the application:
+
+bash
+Copy code
+python app.py
