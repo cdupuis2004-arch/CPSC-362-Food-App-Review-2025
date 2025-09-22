@@ -6,12 +6,7 @@
    ```bash
    python --version
 📦 Install project dependencies:
-
-bash
-Copy code
 pip install -r requirements.txt
-▶️ Run the application:
 
-bash
-Copy code
+▶️ Run the application:
 python app.py
