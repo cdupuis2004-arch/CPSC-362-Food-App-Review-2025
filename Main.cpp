@@ -1,12 +1,12 @@
 /*
 Saltines
 CMPR121
-Group Project part A
+Group Project Part A
 */
 
 //CODE EDIT TEST
 //CODE EDIT TEST
-
+//Group project 362
 #include<iostream>
 #include<cstdlib>
 #include<ctime>
@@ -269,4 +269,5 @@ void kms(int a) // ADDS TOKENS
 		break;
 	}
 	outFile.close();
+
 }
