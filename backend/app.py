@@ -12,6 +12,3 @@ def home():
 # If the current file being ran is THIS file
 if __name__ == "__main__":
     app.run()
-
-#Chris is pushing this comment
-print("Hello World")
