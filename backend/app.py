@@ -9,8 +9,11 @@ def home():
     return render_template('chris_new_file.html')
 
 
-# If the current file being ran is THIS file
+# Option to run the app - 'yes' or 'no'
 if __name__ == "__main__":
-    app.run()
+    response = input("Do you want to run the CSUF Food Review Application? (Yes/No): ").strip().lower()
+    if response in ['Yes', 'yes', 'y']:
+        app.run()
+    else:
+        print("App will not execute.")
 
-#a new test comment
