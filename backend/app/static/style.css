@@ -6,6 +6,7 @@ body {
     justify-content: flex-start;
     background-color: #282a2b;
     color: white;
+    font-family: 'Inter', sans-serif;
 }
 
 .map-container {
@@ -41,18 +42,30 @@ body {
 }
 
 .search {
+  position: fixed;
+  top: 60px;
+  left: 50%;
+
   display: flex;
   align-items: center;
   gap: 8px;
-  background: #fff;
-  border: 1px solid #ccc;
-  border-radius: 10px;
+
+  background: #ffffff;
+  border-radius: 30px;
   padding: 8px 10px;
   box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+  width: 600px;
+
+  transition: background 0.25s;
+}
+
+.search:focus-within {
+  background: #e6e5e5;
+
 }
 
 .search .material-symbols-outlined {
-  font-size: 20px;
+  font-size: 25px;
   color: #555;
 }
 
@@ -60,15 +73,28 @@ body {
   flex: 1;
   border: none;
   outline: none;
-  font-size: 14px;
+  background: transparent;
+  box-shadow: none;
+  font-size: 16px;
   padding: 6px 8px;
 }
 
 .search button {
   padding: 6px 12px;
-  border: 1px solid #111;
-  border-radius: 8px;
-  background: #111;
+  border: 1px solid #4f4b4b;
+  border-radius: 20px;
+  background: #4f4b4b;
   color: #fff;
   cursor: pointer;
+  transition: all 0.12s ease-in-out;
+}
+
+.searchBar button:hover {
+  background: #ff5722;
+  transform: scale(1.15);
+  font-weight: 600;
+}
+
+#searchBar button:active {
+  transform: scale(1.07);
 }
