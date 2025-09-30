@@ -10,6 +10,4 @@
    ```bash
     pip install -r requirements.txt
 
-▶️ Run **python app.py** with your interpreter
-
-The "Templates" folder is just where html files will go
+▶️ Run **python main.py** with your interpreter
