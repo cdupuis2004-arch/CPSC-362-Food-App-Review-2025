@@ -10,7 +10,7 @@ bp = Blueprint("blueprint", __name__)
 def root():
     return render_template('index.html'), 200
 
-@bp.route('/review', methods=['POST'])
+@bp.route('/api/review', methods=['POST'])
 def review():
     data = request.get_json()
 
