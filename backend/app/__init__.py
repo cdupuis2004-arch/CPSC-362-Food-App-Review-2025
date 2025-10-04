@@ -7,12 +7,16 @@ db = SQLAlchemy()
 def create_app():
     app = Flask(__name__)
 
-    # App config
-    app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///site.db'
+    # --- App config ---
+    app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///reviews.db'
     app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
-    # Init SQLAlchemy
+    from app import models
+
+    # --- Init SQLAlchemy ---
     db.init_app(app)
+    with app.app_context():
+        db.create_all()
 
     from app.routes import bp
     app.register_blueprint(bp)
