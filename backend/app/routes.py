@@ -10,11 +10,11 @@ def root():
     return render_template('index.html'), 200
 
 @bp.route('/api/reviews', methods=['GET'])
-def add_review():
+def get_reviews():
     return reviews.get_reviews(), 200
 
 @bp.route('/api/reviews', methods=['POST'])
-def get_review():
+def add_review():
     data = request.get_json()
     reviews.add_review(data['username'], data['rating'], data['comment'])
 
