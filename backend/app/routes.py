@@ -1,6 +1,5 @@
 from flask import Blueprint, render_template, request
-from app.models import Review
-from app import db
+from app import reviews
 
 # Create the blueprint for the routes
 bp = Blueprint("blueprint", __name__)
@@ -10,17 +9,13 @@ bp = Blueprint("blueprint", __name__)
 def root():
     return render_template('index.html'), 200
 
-@bp.route('/api/review', methods=['POST'])
-def review():
+@bp.route('/api/reviews', methods=['GET'])
+def add_review():
+    return reviews.get_reviews(), 200
+
+@bp.route('/api/reviews', methods=['POST'])
+def get_review():
     data = request.get_json()
-
-    new_review = Review(
-        username = data['username'],
-        rating = data['rating'],
-        comment = data['comment']
-    )
-
-    db.session.add(new_review)
-    db.session.commit()
+    reviews.add_review(data['username'], data['rating'], data['comment'])
 
     return {"message": "Review added successfully!"}, 201
