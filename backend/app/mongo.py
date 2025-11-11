@@ -21,4 +21,4 @@ def add_review(name, comment):
     result = collection.insert_one(data)
     if result.inserted_id:
         return {'status': 'success'}
-    return {'status': 'error'}
+    return {'status': 'mongo error'}
