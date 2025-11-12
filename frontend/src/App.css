@@ -34,9 +34,28 @@
 }
 
 .card {
-  padding: 2em;
+    display: grid;
+    padding: 2em;
 }
 
 .read-the-docs {
   color: #888;
+}
+
+.name-input {
+    padding: 8px;
+    resize: none;        /* keeps it tidy */
+    font-family: inherit;
+    border-radius: 6px;
+    border: 1px solid #ccc;
+}
+
+.message-input {
+    height: 80px;
+    padding: 8px;
+    resize: none;        /* keeps it tidy */
+    vertical-align: top; /* text starts at the top */
+    font-family: inherit;
+    border-radius: 6px;
+    border: 1px solid #ccc;
 }
