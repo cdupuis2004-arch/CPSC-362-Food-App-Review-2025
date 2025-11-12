@@ -10,7 +10,7 @@
    ```bash
     pip install -r requirements.txt
 
-▶️ Run **python main.py** with your interpreter
+▶️ Run **python backend/main.py** with your interpreter
 
 ## ⚙️ Setup Frontend
 
