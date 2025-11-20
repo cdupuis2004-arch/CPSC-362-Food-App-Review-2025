@@ -1,7 +1,9 @@
 import {useState} from "react";
 import reactLogo from './assets/react.svg'
 import viteLogo from '/vite.svg'
+import './ReviewDisplay.jsx'
 import './App.css'
+import ReviewDisplay from "./ReviewDisplay.jsx";
 
 function App() {
     const [name, setName] = useState('')
@@ -26,7 +28,7 @@ function App() {
             name: name,
             comment: message,
         };
-        const response = await fetch('http://localhost:5000/api/reviews', {
+        await fetch('http://localhost:5000/api/reviews', {
             method: 'POST',
             headers: {
                 "content-type": "application/json",
@@ -41,6 +43,7 @@ function App() {
 
   return (
     <>
+      <ReviewDisplay />
       <div>
         <a target="_blank">
           <img src={viteLogo} className="logo" alt="Vite logo" />

@@ -1,0 +1,48 @@
+p {
+    color: grey;
+}
+
+.review-container-placer {
+    position: absolute;
+    top: 0;
+    left: 50px;
+}
+
+.reviewContainer {
+    height: 500px;
+    width: 400px;
+
+    border-radius: 10px;
+    filter: drop-shadow(0 0 5px #757575);
+    background-color: #3b3b3b;
+}
+
+.reviewScroll {
+    overflow-y: auto;
+    height: inherit;
+
+    /* 🔥 Fade at top and bottom */
+    mask-image: linear-gradient(
+            to bottom,
+            transparent 0%,
+            black 0%,
+            black 90%,
+            transparent 100%
+    );
+}
+
+.review {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    padding-left: 10px;
+}
+
+.review h3 {
+    flex: 0 0 120px;   /* fixed width for the name */
+    white-space: nowrap; /* ensures no wrapping ever */
+}
+
+.review p {
+    flex: 1; /* paragraph fills the remaining space */
+}
