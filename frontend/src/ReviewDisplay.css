@@ -10,7 +10,7 @@ p {
 
 .reviewContainer {
     height: 500px;
-    width: 400px;
+    width: 500px;
 
     border-radius: 10px;
     filter: drop-shadow(0 0 5px #757575);
@@ -21,7 +21,6 @@ p {
     overflow-y: auto;
     height: inherit;
 
-    /* 🔥 Fade at top and bottom */
     mask-image: linear-gradient(
             to bottom,
             transparent 0%,
@@ -33,7 +32,7 @@ p {
 
 .review {
     display: flex;
-    align-items: flex-start;
+    align-items: center;
     gap: 10px;
     padding-left: 10px;
 }
