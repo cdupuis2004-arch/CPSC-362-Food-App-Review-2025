@@ -21,10 +21,12 @@ def get_reviews():
 def add_review():
     data = request.get_json()
 
-    name = data['name']
+    store = data['store']
+    username = data['name']
     comment = data['comment']
+    rating = data['rating']
 
-    if name and comment:
-        result = mongo.add_review(name, comment)
+    if store and username and comment and rating:
+        result = mongo.add_review(store, username, comment, rating)
         return result, 201
     return {'message': 'Missing data'}, 400
