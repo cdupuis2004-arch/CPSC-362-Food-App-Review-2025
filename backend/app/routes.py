@@ -24,9 +24,9 @@ def add_review():
     store = data['store']
     username = data['name']
     comment = data['comment']
-    rating = data['rating']
+    rating = int(data['rating']) # Covert ratings to int
 
-    if store and username and comment and rating:
+    if store and username and comment:
         result = mongo.add_review(store, username, comment, rating)
         return result, 201
     return {'message': 'Missing data'}, 400
