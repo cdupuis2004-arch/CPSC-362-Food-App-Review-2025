@@ -15,15 +15,29 @@ def root_api():
 
 @bp.route('/api/reviews', methods=['GET'])
 def get_reviews():
+    filters = {}
+
+    store = request.args.get("store")
+    name = request.args.get("name")
+
+    if store:
+        filters["store"] = store
+        print(filters)
+
+    if name:
+        filters["name"] = name
+
+    if filters:
+        return jsonify(mongo.get_reviews(filters)), 200
     return jsonify(mongo.get_reviews()), 200
 
 @bp.route('/api/reviews', methods=['POST'])
 def add_review():
     data = request.get_json()
 
-    store = data['store']
-    username = data['name']
-    comment = data['comment']
+    store = data['store'].strip().lower()
+    username = data['name'].strip().lower()
+    comment = data['comment'].strip().lower()
     rating = int(data['rating']) # Covert ratings to int
 
     if store and username and comment:

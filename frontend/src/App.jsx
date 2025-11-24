@@ -1,9 +1,9 @@
 import {useState} from "react";
 import reactLogo from './assets/react.svg'
 import viteLogo from '/vite.svg'
-import './ReviewDisplay.jsx'
 import './App.css'
 import ReviewDisplay from "./ReviewDisplay.jsx";
+import Map from "./Map.jsx";
 
 function App() {
     const [store, setStore] = useState('')
@@ -71,20 +71,7 @@ function App() {
           <img src={reactLogo} className="logo react" alt="React logo" />
         </a>
       </div>
-
-      <h1>Review Tester</h1>
-
-      <div className="card">
-          <input className="name-input" placeholder="Enter store name.." value={store} onChange={e => setStore(e.target.value)}/>
-          <input className="name-input" placeholder="Enter your name.." value={name} onChange={e => setName(e.target.value)}/>
-          <textarea className="message" placeholder="Write your review here." value={comment} onChange={e => setComment(e.target.value)}/>
-          <input className="name-input" placeholder="Enter rating 0 to 5.." value={rating} onChange={e => setRating(e.target.value)}/>
-
-          <button onClick={sendReview}>Add review</button>
-      </div>
-      <p className="read-the-docs">
-        Enter your name and comment then hit "Add review" to leave a review.
-      </p>
+      <Map />
     </>
   )
 }

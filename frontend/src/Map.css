@@ -1,0 +1,17 @@
+.leaflet-container {
+    height: 100%;
+    width: 100%;
+
+    border-radius: 5px;
+}
+
+.map-container-outer {
+    position: absolute;
+    top: 15%;
+    left: 30px;
+
+    height: 75%; /* or whatever size you want */
+    width: 25%;
+
+    filter: drop-shadow(0 0 5px #ffffff);
+}
