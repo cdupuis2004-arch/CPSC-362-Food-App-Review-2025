@@ -2,13 +2,19 @@ import { MapContainer, TileLayer, Marker } from "react-leaflet";
 import "leaflet/dist/leaflet.css";
 import L from "leaflet";
 
-export default function MapView(){
+export default function MapView({ onMarkerClick }) {
   const restaurants = [
     {
       id: 1,
       name: "Taco Palace",
-      position: [33.8823, 117.8851],
-      logo: "/taco.png" // Place taco.png in the public folder
+      position: [33.8823, -117.8851],
+      logo: "/taco.png"
+    },
+    {
+      id: 2,
+      name: "Panda Express",
+      position: [33.881945090165964, -117.88762995880049],
+      logo: "/panda.png"
     }
   ];
 
@@ -19,6 +25,7 @@ export default function MapView(){
       style={{ height: "100vh", width: "100%" }}
     >
       <TileLayer url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png" />
+
       {restaurants.map(r => (
         <Marker
           key={r.id}
@@ -29,7 +36,7 @@ export default function MapView(){
             iconAnchor: [20, 40]
           })}
           eventHandlers={{
-            click: () => onRestaurantSelect(r)
+            click: () => onMarkerClick(r)
           }}
         />
       ))}

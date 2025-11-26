@@ -9,8 +9,9 @@ function App() {
 
   return (
     <div className="app-container">
+      
       {/* Fullscreen map */}
-      <MapView onRestaurantSelect={setSelectedRestaurant} />
+      <MapView onMarkerClick={setSelectedRestaurant} />
 
       {/* Floating search bar */}
       <SearchBar />
@@ -20,6 +21,7 @@ function App() {
         restaurant={selectedRestaurant}
         onClose={() => setSelectedRestaurant(null)}
       />
+
     </div>
   );
 }
