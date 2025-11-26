@@ -1,4 +1,5 @@
-from flask import Blueprint, render_template
+from flask import Blueprint, jsonify, request
+import app.mongo as mongo
 
 # Create the blueprint for the routes
 bp = Blueprint("blueprint", __name__)
@@ -6,4 +7,24 @@ bp = Blueprint("blueprint", __name__)
 # Renders index.html for the root url, http://127.0.0.1:5000/
 @bp.route('/')
 def root():
-    return render_template('index.html'), 200
+    return {'message': 'Welcome to the root'}, 200
+
+@bp.route('/api')
+def root_api():
+    return {'message': 'Welcome to the api'}, 200
+
+@bp.route('/api/reviews', methods=['GET'])
+def get_reviews():
+    return jsonify(mongo.get_reviews()), 200
+
+@bp.route('/api/reviews', methods=['POST'])
+def add_review():
+    data = request.get_json()
+
+    name = data['name']
+    comment = data['comment']
+
+    if name and comment:
+        result = mongo.add_review(name, comment)
+        return result, 201
+    return {'message': 'Missing data'}, 400
