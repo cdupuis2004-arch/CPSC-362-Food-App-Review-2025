@@ -4,21 +4,29 @@ uri = "mongodb+srv://CasualCaleb:GDD8tvad5u95UvDD@cluster0.sifoxlk.mongodb.net/?
 client = MongoClient(uri)
 collection = client['reviews']['collection']
 
-def get_reviews():
-    data = collection.find()
-    reviews = []
+def get_reviews(filters=None):
+    query = filters or {}
+    data = collection.find(query)
 
+    reviews = []
     for review in data:
         review['_id'] = str(review['_id'])
         reviews.append(review)
+
     return reviews
 
-def add_review(name, comment):
+def add_review(store, username, comment, rating):
+    # Make sure rating is between 0 and 5
+    if rating < 0 or rating > 5:
+        return {'status': 'mongo.py rating error'}
+
     data = {
-        'name': name,
-        'comment': comment
+        'store': store,
+        'name': username,
+        'comment': comment,
+        'rating': rating,
     }
     result = collection.insert_one(data)
     if result.inserted_id:
         return {'status': 'success'}
-    return {'status': 'mongo error'}
+    return {'status': 'MongoDB internal error'}
