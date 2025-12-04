@@ -1,5 +1,3 @@
-import ReviewDisplay from '../ReviewDisplay';
-
 export default function RestaurantDrawer({ restaurant, onClose }) {
   return (
     <div className={`restaurant-drawer ${restaurant ? "open" : ""}`}>
@@ -7,10 +5,7 @@ export default function RestaurantDrawer({ restaurant, onClose }) {
         <>
           <button onClick={onClose}>Close</button>
           <h2>{restaurant.name}</h2>
-          <p>Additional restaurant info can go here.</p>
-          
-          {/* Review system displayed here */}
-          <ReviewDisplay restaurant={restaurant} />
+          <p>Additional restaurant info can go .</p> {/*edit the info displayed here, include review system, ratings etc...*/}
         </>
       )}
     </div>

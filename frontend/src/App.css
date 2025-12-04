@@ -63,3 +63,41 @@ html, body, #root {
     transform: translateY(0);
   }
 }
+/* Review Drawer Panel */
+.review-drawer {
+  position: absolute;
+  top: 75px;
+  left: 50%;                    /* center horizontally */
+  transform: translate(-50%, -110%); /* hidden state: slightly above */
+  width: 60vw;                  /* responsive width */
+  max-width: 1000px;
+  min-width: 360px;
+  height: 80%;
+  background: #f9f9f9;
+  padding: 20px;
+  box-shadow: 0 8px 24px rgba(0,0,0,0.2);
+  transition: transform 300ms cubic-bezier(.2,.9,.3,1), opacity 300ms ease;
+  opacity: 0;
+  z-index: 900;
+  overflow-y: auto;
+  border-radius: 24px;
+  overflow: hidden;
+}
+
+.review-drawer.open {
+  transform: translate(-50%, 0); /* moved into place */
+  opacity: 1;
+}
+/* Review Drawer Text Box */
+.review-textarea {
+  font-size: 14px;
+  line-height: 1.4;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 8px;   /* rounded corners */
+  box-sizing: border-box;
+  background: white;
+  min-height: 140px;    /* ensures it's reasonably tall even if rows omitted */
+  max-height: 60vh;
+  overflow-y: auto;
+}
