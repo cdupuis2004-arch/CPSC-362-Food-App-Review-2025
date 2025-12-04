@@ -14,7 +14,7 @@ export default function MapView({ onMarkerClick }) {
       id: 2,
       name: "Panda Express",
       position: [33.881945090165964, -117.88762995880049],
-      logo: "/panda.png"
+      logo: "/pandaexpress.png"
     },
     
     
