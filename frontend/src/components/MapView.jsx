@@ -83,6 +83,7 @@ export default function MapView({ onMarkerClick }) {
     <MapContainer
       center={[33.8823, -117.8851]}
       zoom={20}
+      zoomControl={false}   // turn off the default zoom controls
       style={{ height: "100vh", width: "100%" }}
     >
       <TileLayer url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png" />

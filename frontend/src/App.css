@@ -43,6 +43,9 @@ html, body, #root {
   transform: translateX(-100%);
   transition: transform 0.25s ease;
   z-index: 900;
+
+  /* Make it scroll */
+  overflow-y: auto;
 }
 
 .restaurant-drawer.open {
