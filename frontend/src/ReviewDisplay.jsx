@@ -1,5 +1,4 @@
 import {useEffect, useState} from "react";
-import reviewData from './reviews.json'
 import './ReviewDisplay.css'
 
 function ReviewDisplay({ restaurant }) {
@@ -8,6 +7,7 @@ function ReviewDisplay({ restaurant }) {
     const [name, setName] = useState('');
     const [comment, setComment] = useState('');
     const [rating, setRating] = useState(5);
+    const [editingId, setEditingId] = useState(null);
 
     function toStars(num) {
         return "★".repeat(num) + "☆".repeat(5 - num);
@@ -24,9 +24,11 @@ function ReviewDisplay({ restaurant }) {
             const parsed = data
                 .filter(r => !restaurant || r.store === restaurant.name)
                 .map(r => ({
+                    _id: r._id,
                     name: r.name,
                     store: r.store,
                     comment: r.comment,
+                    ratingNumber: r.rating,
                     rating: toStars(r.rating)
                 }));
 
@@ -45,7 +47,7 @@ function ReviewDisplay({ restaurant }) {
             return;
         }
 
-        const newReview = {
+        const payload = {
             name,
             store: restaurant.name,
             comment,
@@ -53,10 +55,15 @@ function ReviewDisplay({ restaurant }) {
         };
 
         try {
-            const response = await fetch('http://localhost:5000/api/reviews', {
-                method: 'POST',
+            const url = editingId
+                ? `http://localhost:5000/api/reviews/${editingId}`
+                : 'http://localhost:5000/api/reviews';
+            const method = editingId ? 'PATCH' : 'POST';
+
+            const response = await fetch(url, {
+                method,
                 headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify(newReview)
+                body: JSON.stringify(payload)
             });
 
             const result = await response.json();
@@ -65,17 +72,34 @@ function ReviewDisplay({ restaurant }) {
                 setName('');
                 setComment('');
                 setRating(5);
+                setEditingId(null);
                 await fetchReviews(); // Wait for reviews to refresh
-                alert('Review submitted!');
+                alert(editingId ? 'Review updated!' : 'Review submitted!');
             } else {
                 console.error('Error submitting review:', result);
-                alert('Failed to submit review: ' + (result.message || 'Unknown error'));
+                alert('Failed: ' + (result.message || 'Unknown error'));
             }
         } catch (error) {
             console.error('Network error:', error);
             alert('Failed to submit review. Make sure the backend is running.');
         }
     }
+
+    function startEdit(review) {
+        setEditingId(review._id);
+        setName(review.name);
+        setComment(review.comment);
+        setRating(review.ratingNumber || 5);
+    }
+
+    function cancelEdit() {
+        setEditingId(null);
+        setName('');
+        setComment('');
+        setRating(5);
+    }
+
+
 
     useEffect(() => {
         fetchReviews();
@@ -120,7 +144,16 @@ function ReviewDisplay({ restaurant }) {
                     onChange={e => setComment(e.target.value)}
                     required
                 />
-                <button type="submit">Submit Review</button>
+                <div className="form-actions">
+                    {editingId && (
+                        <button type="button" className="secondary" onClick={cancelEdit}>
+                            Cancel
+                        </button>
+                    )}
+                    <button type="submit">
+                        {editingId ? 'Save Changes' : 'Submit Review'}
+                    </button>
+                </div>
             </form>
 
             {/* Reviews List */}
@@ -129,11 +162,14 @@ function ReviewDisplay({ restaurant }) {
                     {reviews.length === 0 ? (
                         <p style={{padding: '10px', textAlign: 'center'}}>No reviews yet. Be the first!</p>
                     ) : (
-                        reviews.map((r, idx) => (
-                            <div className="review" key={idx}>
+                        reviews.map((r) => (
+                            <div className="review" key={r._id}>
                                 <h4>{r.name}</h4>
                                 <p>{r.comment}</p>
                                 <span className="rating">{r.rating}</span>
+                                <button className="edit-btn" type="button" onClick={() => startEdit(r)} title="Edit review">
+                                    ✏️
+                                </button>
                             </div>
                         ))
                     )}
