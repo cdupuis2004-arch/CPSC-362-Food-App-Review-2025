@@ -3,14 +3,44 @@ html, body, #root {
   margin: 0;
   padding: 0;
   overscroll-behavior-y: contain; /* prevent scroll chaining/looping at edges */
+  overflow: hidden; /* hide global scrollbar; left pane remains scrollable */
 }
 
 .app-container {
   position: relative;
   width: 100%;
   min-height: 100vh;
-  overflow: auto;
+  overflow: visible;
   padding-top: 40px; /* buffer at top so top-left card/review isn't overlapped */
+}
+
+/* Two-column layout: left scrolls, right map stays visible */
+.content-split {
+  display: flex;
+  gap: 20px;
+  align-items: flex-start;
+  padding: 0 20px 40px; /* horizontal padding and bottom space */
+}
+
+.left-pane {
+  flex: 1 1 0;
+  max-width: 900px;
+  max-height: calc(100vh - 24px); /* account for top padding */
+  overflow: auto; /* scroll restaurants independently */
+}
+
+.right-pane {
+  width: 40vw;
+  max-width: 1200px;
+  position: sticky;
+  top: 24px; /* stay below top buffer */
+  height: calc(100vh - 24px);
+  align-self: flex-start;
+}
+
+.right-pane .leaflet-container {
+  height: 100%;
+  width: 100%;
 }
 
 .content-split {
