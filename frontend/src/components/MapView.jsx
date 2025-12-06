@@ -1,22 +1,31 @@
 import { MapContainer, TileLayer, Marker } from "react-leaflet";
 import "leaflet/dist/leaflet.css";
+import "./MapView.css";
 import L from "leaflet";
 
 export default function MapView({ onMarkerClick }) {
   const restaurants = [
     {
       id: 1,
-      name: "Test Location",
-      position: [33.8823, -117.8851],
-      logo: "/taco.png"
+      name: "Panda Express",
+      position: [33.881945090165964, -117.88762995880049],
+      logo: "/pandaexpress.png",
+      size: [50, 50]
     },
     {
       id: 2,
-      name: "Panda Express",
-      position: [33.881945090165964, -117.88762995880049],
-      logo: "/pandaexpress.png"
+      name: "Starbucks",
+      position: [33.881395090165964, -117.88762995880049],
+      logo: "/starbucks.png",
+      size: [50, 50]
     },
-    
+    {
+      id: 3,
+      name: "Carl's Jr.",
+      position: [33.879395090165964, -117.88383995880049],
+      logo: "/carls.png",
+      size: [50, 50]
+    },
     
     // below are new locations, need to add logo and position
     
@@ -82,20 +91,22 @@ export default function MapView({ onMarkerClick }) {
   return (
     <MapContainer
       center={[33.8823, -117.8851]}
-      zoom={20}
-      zoomControl={false}   // turn off the default zoom controls
+      zoom={16.5}
+      zoomSnap={0}     // allow ANY decimals
+      zoomDelta={0.5}  // optional: scroll changes in 0.5 steps
+      zoomControl={false}
       style={{ height: "100vh", width: "100%" }}
     >
-      <TileLayer url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png" />
+      <TileLayer url="https://api.maptiler.com/maps/base-v4-dark/256/{z}/{x}/{y}.png?key=EONVu3wPN06Rzc03jRkO" />
 
       {restaurants.map(r => (
         <Marker
           key={r.id}
           position={r.position}
-          icon={L.icon({
-            iconUrl: r.logo,
-            iconSize: [40, 40],
-            iconAnchor: [20, 40]
+          icon={L.divIcon({
+            html: `<img src="${r.logo}" class="map-icon" />`,
+            className: `marker marker-${r.id}`,
+            iconSize: r.size
           })}
           eventHandlers={{
             click: () => onMarkerClick(r)
