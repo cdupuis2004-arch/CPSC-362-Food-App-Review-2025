@@ -1,8 +1,28 @@
-import { MapContainer, TileLayer, Marker } from "react-leaflet";
+import { MapContainer, TileLayer, Marker, useMap } from "react-leaflet";
+import { useEffect } from "react";
 import "leaflet/dist/leaflet.css";
 import L from "leaflet";
 
-export default function MapView({ onMarkerClick }) {
+// Component to control map view when restaurant is selected
+function MapController({ selectedRestaurant, restaurants }) {
+  const map = useMap();
+
+  useEffect(() => {
+    if (selectedRestaurant) {
+      // Find the restaurant with position data
+      const restaurant = restaurants.find(r => r.name === selectedRestaurant.name);
+      if (restaurant && restaurant.position) {
+        map.flyTo(restaurant.position, 19, {
+          duration: 1.2
+        });
+      }
+    }
+  }, [selectedRestaurant, restaurants, map]);
+
+  return null;
+}
+
+export default function MapView({ onMarkerClick, selectedRestaurant }) {
   const restaurants = [
     {
       id: 1,
@@ -82,10 +102,15 @@ export default function MapView({ onMarkerClick }) {
   return (
     <MapContainer
       center={[33.8823, -117.8851]}
-      zoom={20}
-      style={{ height: "100vh", width: "100%" }}
+      zoom={17}
+      maxZoom={19}
+      style={{ height: "100%", width: "100%" }}
     >
-      <TileLayer url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png" />
+      <MapController selectedRestaurant={selectedRestaurant} restaurants={restaurants} />
+      <TileLayer 
+        url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+        maxZoom={19}
+      />
 
       {restaurants.map(r => (
         <Marker

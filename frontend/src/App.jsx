@@ -1,6 +1,7 @@
 import { useState } from "react";
 import RestaurantsGrid from "./components/RestaurantsGrid";
 import SearchBar from "./components/SearchBar";
+import MapView from "./components/MapView";
 import "./App.css";
 
 function App() {
@@ -18,12 +19,18 @@ function App() {
   };
   return (
     <div className="app-container">
-      
       {/* Floating search bar */}
       <SearchBar />
 
-      {/* Restaurants grid with inline review UI */}
-      <RestaurantsGrid onSelect={(r) => setSelectedRestaurant(r)} writeReview={writeReview} />
+      {/* Two-column layout: cards left, interactive map right */}
+      <div className="content-split">
+        <div className="left-pane">
+          <RestaurantsGrid onSelect={(r) => setSelectedRestaurant(r)} writeReview={writeReview} />
+        </div>
+        <div className="right-pane">
+          <MapView onMarkerClick={(r) => setSelectedRestaurant(r)} selectedRestaurant={selectedRestaurant} />
+        </div>
+      </div>
     </div>
   );
 }

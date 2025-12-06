@@ -13,6 +13,39 @@ html, body, #root {
   padding-top: 40px; /* buffer at top so top-left card/review isn't overlapped */
 }
 
+.content-split {
+  display: grid;
+  grid-template-columns: 1.1fr 0.9fr;
+  gap: 20px;
+  padding: 20px;
+  box-sizing: border-box;
+}
+
+.left-pane {
+  min-width: 0;
+}
+
+.right-pane {
+  min-width: 320px;
+  height: calc(100vh - 80px);
+  position: sticky;
+  top: 60px;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 8px 24px rgba(0,0,0,0.18);
+}
+
+@media (max-width: 1024px) {
+  .content-split {
+    grid-template-columns: 1fr;
+  }
+  .right-pane {
+    position: relative;
+    height: 60vh;
+    top: 0;
+  }
+}
+
 .leaflet-container {
   height: 100%;
   width: 100%;
