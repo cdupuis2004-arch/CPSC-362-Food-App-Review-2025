@@ -1,47 +1,148 @@
-p {
-    color: grey;
-}
-
 .review-container-placer {
-    position: absolute;
-    top: 0;
-    left: 50px;
+    width: 100%;
+    margin-top: 20px;
 }
 
-.reviewContainer {
-    height: 500px;
-    width: 500px;
+/* Restaurant Header with Logo */
+.restaurant-header {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    margin-bottom: 20px;
+    padding: 15px;
+    background-color: #2a2a2a;
+    border-radius: 8px;
+}
 
-    border-radius: 10px;
-    filter: drop-shadow(0 0 5px #757575);
-    background-color: #3b3b3b;
+.restaurant-logo {
+    width: 60px;
+    height: 60px;
+    object-fit: contain;
+    border-radius: 8px;
+    background-color: white;
+    padding: 5px;
+}
+
+.restaurant-header h3 {
+    margin: 0;
+    font-size: 1.4em;
+    color: #646cff;
+}
+
+.review-container-placer h3 {
+    margin-bottom: 15px;
+    font-size: 1.2em;
+}
+
+/* Review Form */
+.review-form {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-bottom: 20px;
+    padding: 15px;
+    background-color: #2a2a2a;
+    border-radius: 8px;
+}
+
+.review-form input,
+.review-form select,
+.review-form textarea {
+    padding: 8px;
+    border: 1px solid #444;
+    border-radius: 4px;
+    background-color: #1a1a1a;
+    color: white;
+    font-family: inherit;
+}
+
+.review-form textarea {
+    min-height: 60px;
+    resize: vertical;
+}
+
+.review-form button {
+    padding: 10px;
+    background-color: #646cff;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-weight: bold;
+}
+
+.review-form button:hover {
+    background-color: #535bf2;
+}
+
+.form-actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 8px;
+}
+
+.form-actions .secondary {
+    background-color: #444;
+}
+
+.form-actions .secondary:hover {
+    background-color: #555;
+}
+
+/* Reviews Container */
+.reviewContainer {
+    max-height: 300px;
+    border-radius: 8px;
+    background-color: #2a2a2a;
+    padding: 10px;
 }
 
 .reviewScroll {
     overflow-y: auto;
-    height: inherit;
-
-    mask-image: linear-gradient(
-            to bottom,
-            transparent 0%,
-            black 0%,
-            black 90%,
-            transparent 100%
-    );
+    max-height: 280px;
 }
 
 .review {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    padding-left: 10px;
+    padding: 12px;
+    margin-bottom: 10px;
+    background-color: #1a1a1a;
+    border-radius: 6px;
+    border-left: 3px solid #646cff;
+    position: relative;
+    padding-bottom: 32px;
 }
 
-.review h3 {
-    flex: 0 0 120px;   /* fixed width for the name */
-    white-space: nowrap; /* ensures no wrapping ever */
+.review h4 {
+    margin: 0 0 5px 0;
+    color: #646cff;
+    font-size: 0.95em;
 }
 
 .review p {
-    flex: 1; /* paragraph fills the remaining space */
+    margin: 5px 0;
+    color: #ddd;
+    font-size: 0.9em;
+}
+
+.review .rating {
+    display: block;
+    color: #ffd700;
+    font-size: 0.9em;
+    margin-top: 5px;
+}
+
+.edit-btn {
+    position: absolute;
+    bottom: 6px;
+    right: 8px;
+    background: #2a2a2a;
+    border: 1px solid #444;
+    border-radius: 4px;
+    color: #ddd;
+    cursor: pointer;
+    padding: 4px 6px;
+}
+
+.edit-btn:hover {
+    background: #3a3a3a;
 }

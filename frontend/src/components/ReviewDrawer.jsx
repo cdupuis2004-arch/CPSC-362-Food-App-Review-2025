@@ -36,7 +36,7 @@ export default function ReviewDrawer({ restaurant, isOpen, onClose, writeReview 
             aria-describedby="review-count"
           />
 
-          <div id="review-count" style={{ marginTop: 8, color: "#666", fontSize: 12 }}>
+          <div id="review-count" style={{ marginTop: 8, color: "#777", fontSize: 12 }}>
             {text.length}/{MAX} characters
           </div>
 
@@ -49,7 +49,7 @@ export default function ReviewDrawer({ restaurant, isOpen, onClose, writeReview 
           </button>
         </>
       ) : (
-        <div style={{ paddingTop: 8, color: "#666" }}>Select a restaurant to write a review.</div>
+        <div style={{ paddingTop: 8, color: "#777" }}>Select a restaurant to write a review.</div>
       )}
     </div>
   );

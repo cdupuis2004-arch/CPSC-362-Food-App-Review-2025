@@ -1,125 +1,30 @@
 import { MapContainer, TileLayer, Marker, useMap } from "react-leaflet";
 import { useEffect } from "react";
 import "leaflet/dist/leaflet.css";
+import "./MapView.css";
 import L from "leaflet";
+import restaurants from "../data/restaurants.json";
 
-// Component to control map view when restaurant is selected
-function MapController({ selectedRestaurant, restaurants }) {
-  const map = useMap();
-
-  useEffect(() => {
-    if (selectedRestaurant) {
-      // Find the restaurant with position data
-      const restaurant = restaurants.find(r => r.name === selectedRestaurant.name);
-      if (restaurant && restaurant.position) {
-        map.flyTo(restaurant.position, 19, {
-          duration: 1.2
-        });
-      }
-    }
-  }, [selectedRestaurant, restaurants, map]);
-
-  return null;
-}
-
-export default function MapView({ onMarkerClick, selectedRestaurant }) {
-  const restaurants = [
-    {
-      id: 1,
-      name: "Test Location",
-      position: [33.8823, -117.8851],
-      logo: "/taco.png"
-    },
-    {
-      id: 2,
-      name: "Panda Express",
-      position: [33.881945090165964, -117.88762995880049],
-      logo: "/panda.png"
-    },
-    
-    
-    // below are new locations, need to add logo and position
-    
-    /*
-    {
-      id: 3,
-      name: "Burger King", 
-    },
-    {
-    id: 4,
-    name: "Starbucks 1"
-    },
-    {
-    id: 5,
-    name: "Starbucks 2"
-    },
-    {
-    id: 6,
-    name: "Starbucks 3"
-    },
-    {
-    id: 7,
-    name: "Avanti Markets"
-    },
-    {
-    id: 8,
-    name: "Baja Fresh Express"
-    },
-    {
-    id: 9,
-    name: "Carl's Jr."
-    },
-    {
-    id: 10,
-    name: "Fresh Kitchen"
-    },
-    {
-    id: 11,
-    name: "Hibachi-San"
-    },
-    {
-    id: 12,
-    name: "Juice It Up"
-    },
-    {
-    id: 13,
-    name: "Pieology"
-    },
-    {
-    id: 14,
-    name: "The Brief Stop"
-    },
-    {
-    id: 15,
-    name: "The Yum"
-    },
-    {
-    id: 16,
-    name: "TOGO'S"
-    }, */
-  ];
-
+export default function MapView({ onMarkerClick }) {
   return (
     <MapContainer
       center={[33.8823, -117.8851]}
-      zoom={17}
-      maxZoom={19}
-      style={{ height: "100%", width: "100%" }}
+      zoom={16.5}
+      zoomSnap={0}     // allow ANY decimals
+      zoomDelta={0.5}  // optional: scroll changes in 0.5 steps
+      zoomControl={false}
+      style={{ height: "100vh", width: "100%" }}
     >
-      <MapController selectedRestaurant={selectedRestaurant} restaurants={restaurants} />
-      <TileLayer 
-        url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-        maxZoom={19}
-      />
+      <TileLayer url="https://api.maptiler.com/maps/base-v4-dark/256/{z}/{x}/{y}.png?key=EONVu3wPN06Rzc03jRkO" />
 
       {restaurants.map(r => (
         <Marker
           key={r.id}
           position={r.position}
-          icon={L.icon({
-            iconUrl: r.logo,
-            iconSize: [40, 40],
-            iconAnchor: [20, 40]
+          icon={L.divIcon({
+            html: `<img src="${r.logo}" class="map-icon" />`,
+            className: `marker marker-${r.id}`,
+            iconSize: r.size
           })}
           eventHandlers={{
             click: () => onMarkerClick(r)
