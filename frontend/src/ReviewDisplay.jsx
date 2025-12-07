@@ -1,7 +1,7 @@
 import {useEffect, useState} from "react";
 import './ReviewDisplay.css'
 
-function ReviewDisplay({ restaurant }) {
+function ReviewDisplay({ restaurant, showHeader = true }) {
 
     const [reviews, setReviews] = useState([]);
     const [name, setName] = useState('');
@@ -109,19 +109,18 @@ function ReviewDisplay({ restaurant }) {
     return (
         <div className="review-container-placer">
             {/* Restaurant Logo */}
-            {restaurant && (
-                <div className="restaurant-header">
-                    <img 
-                        src={restaurant.logo}
-                        alt={`${restaurant.name} logo`}
-                        className="restaurant-logo"
-                        onError={(e) => e.target.style.display = 'none'}
-                    />
-                    <h3>{restaurant.name}</h3>
-                </div>
-            )}
+                    {showHeader && restaurant && (
+                        <div className="restaurant-header">
+                            <img 
+                                src={restaurant.logo}
+                                alt={`${restaurant.name} logo`}
+                                className="restaurant-logo"
+                                onError={(e) => e.target.style.display = 'none'}
+                            />
+                            <h3>{restaurant.name}</h3>
+                        </div>
+                    )}
             
-            <h3>Reviews</h3>
             
             {/* Add Review Form */}
             <form onSubmit={submitReview} className="review-form">

@@ -86,12 +86,9 @@ html, body, #root {
   position: absolute;
   top: 0;
   bottom: 0;
-  /* anchor drawer to left and make it cover the entire left pane
-     content-split has horizontal padding of 20px; right pane is 40vw
-     so left pane width ~ calc(100% - 40vw - 40px) */
   left: 20px;
   width: calc(100% - 40vw - 40px);
-  max-width: 660px;
+  max-width: 670px;
   background: white;
   padding: 20px;
   box-shadow: 2px 0 12px rgba(0,0,0,0.35);

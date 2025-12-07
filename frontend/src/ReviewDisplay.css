@@ -91,15 +91,25 @@
 
 /* Reviews Container */
 .reviewContainer {
-    max-height: 300px;
+    /* allow the drawer to handle vertical scrolling */
     border-radius: 8px;
     background-color: #2a2a2a;
     padding: 10px;
 }
 
+/* Carousel tweaks for recent reviews inside the drawer */
+.reviews-carousel .carousel-track {
+    gap: 12px;
+}
+.carousel-slide {
+    background: #1a1a1a;
+    color: #ddd;
+}
+
 .reviewScroll {
-    overflow-y: auto;
-    max-height: 280px;
+    /* let the parent drawer scroll; avoid internal scrollbars */
+    overflow-y: visible;
+    max-height: none;
 }
 
 .review {
