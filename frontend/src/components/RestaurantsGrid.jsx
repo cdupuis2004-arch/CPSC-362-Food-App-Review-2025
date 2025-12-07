@@ -2,49 +2,50 @@ import React, { useState, useRef, useEffect } from "react";
 
 // Using the same restaurant data as MapView so we don't change other files.
 const restaurants = [
+  
+  /*
   {
     id: 1,
     name: "Test Location",
     position: [33.8823, -117.8851],
-    logo: "/taco.png",
     image: "/taco.png",
     avgRating: 4.2,
     info: "Test Location description"
   },
+  */
+ // Place Holder restaurant removed for cleaner UI, commented out incase needed later.
   {
     id: 2,
     name: "Panda Express",
-    position: [33.881945090165964, -117.88762995880049],
-    logo: "/panda.png",
     image: "/panda.png",
     avgRating: 3.8,
     info: "Fast Chinese food"
   },
   {
     id: 3,
-    name: "Burger King",
-    image: "/placeholder.png",
+    name: "Carl's Jr.",
+    image: "/CarlsJrBanner.png",
     avgRating: 4.0,
     info: "Burgers and fries"
   },
   {
     id: 4,
     name: "Starbucks 1",
-    image: "/placeholder.png",
+    image: "/StarbucksBanner.png",
     avgRating: 4.4,
     info: "Coffee shop"
   },
   {
     id: 5,
     name: "Starbucks 2",
-    image: "/placeholder.png",
+    image: "/StarbucksBanner.png",
     avgRating: 4.1,
     info: "Coffee shop"
   },
   {
     id: 6,
     name: "Starbucks 3",
-    image: "/placeholder.png",
+    image: "/StarbucksBanner.png",
     avgRating: 3.9,
     info: "Coffee shop"
   }
@@ -52,72 +53,68 @@ const restaurants = [
   {
     id: 7,
     name: "Avanti Markets",
-    image: "/placeholder.png",
+    image: "/AvantiBanner.png",
     avgRating: 2,
-    info: "placeholder"
+    info: "Shop, Scan, Go!"
   },
   {
     id: 8,
     name: "Baja Fresh Express",
-    image: "/placeholder.png",
+    image: "/BajaBanner.png",
     avgRating: 2,
-    info: "placeholder"
+    info: "Fresh Tex-Mex burritos and tacos"
   },
-  {
-    id: 9,
-    name: "Carl's Jr.",
-    image: "/placeholder.png",
-    avgRating: 2,
-    info: "placeholder"
-  },
+
+  //id 9 was removed, replaced Burger King with Carl's Jr. (there is no BK on campus)  
+  
   {
     id: 10,
     name: "Fresh Kitchen",
-    image: "/placeholder.png",
+    image: "/placeholder.png", // could not find a decent image that didn't say FK
     avgRating: 2,
-    info: "placeholder"
+    info: "Custom healthy bowls"
   },
   {
     id: 11,
     name: "Hibachi-San",
-    image: "/placeholder.png",
+    image: "/HibachiBanner.jpg",
     avgRating: 2,
-    info: "placeholder"
+    info: "Fast Japanese bowls and hibachi food"
   },
   {
     id: 12,
     name: "Juice It Up",
-    image: "/placeholder.png",
+    image: "/placeholder.png", // low quaility images so far
     avgRating: 2,
-    info: "placeholder"
+    info: "Fresh smoothies, juices, and superfruit bowls"
   },
   {
     id: 13,
     name: "Pieology",
-    image: "/placeholder.png",
+    image: "/PieologyBanner.jpg",
     avgRating: 2,
-    info: "placeholder"
+    info: "Custom-made personal pizzas to go"
   },
   {
     id: 14,
     name: "The Brief Stop",
-    image: "/placeholder.png",
+    image: "/placeholder.png", // need to find suitable image
     avgRating: 2,
     info: "placeholder"
   },
   {
     id: 15,
     name: "The Yum",
-    image: "/placeholder.png",
+    image: "/placeholder.png", // need to find suitable image
     avgRating: 2,
     info: "placeholder"
   },
   {
     id: 16,
     name: "TOGO'S",
-    image: "/placeholder.png",
+    image: "/TOGOBanner.png",
     avgRating: 2,
-    info: "placeholder"
+    info: "Made0to-order sandwiches"
   }
 ];
 
