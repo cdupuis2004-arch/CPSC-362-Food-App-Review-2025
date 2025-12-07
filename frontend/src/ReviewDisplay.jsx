@@ -26,6 +26,7 @@ function ReviewDisplay({ restaurant }) {
                 .map(r => ({
                     _id: r._id,
                     name: r.name,
+                    logo: r.logo,
                     store: r.store,
                     comment: r.comment,
                     ratingNumber: r.rating,
@@ -111,7 +112,7 @@ function ReviewDisplay({ restaurant }) {
             {restaurant && (
                 <div className="restaurant-header">
                     <img 
-                        src={`/${restaurant.name.toLowerCase().replace(/\s+/g, '')}.png`} 
+                        src={restaurant.logo}
                         alt={`${restaurant.name} logo`}
                         className="restaurant-logo"
                         onError={(e) => e.target.style.display = 'none'}
