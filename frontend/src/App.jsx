@@ -1,44 +1,36 @@
 import { useState } from "react";
-import MapView from "./components/MapView";
+import RestaurantsGrid from "./components/RestaurantsGrid";
 import SearchBar from "./components/SearchBar";
-import RestaurantDrawer from "./components/RestaurantDrawer";
-import ReviewDrawer from "./components/ReviewDrawer";
+import MapView from "./components/MapView";
 import "./App.css";
 
 function App() {
   const [selectedRestaurant, setSelectedRestaurant] = useState(null);
-  const [isReviewDrawerOpen, setIsReviewDrawerOpen] = useState(false);
+
+  const writeReview = (restaurant, text) => {
+    if (!text || !text.trim()) {
+      alert("Please enter a review.");
+      return;
+    }
+    // TODO: replace with API call to persist the review
+    console.log("Submitting review for", restaurant, text);
+    // optionally clear selection
+    setSelectedRestaurant(null);
+  };
   return (
     <div className="app-container">
-      
-      {/* Fullscreen map */}
-      <MapView onMarkerClick={setSelectedRestaurant} />
-
       {/* Floating search bar */}
       <SearchBar onQueryClick={setSelectedRestaurant}/>
 
-      {/* Sliding drawer panel */}
-      <RestaurantDrawer
-        restaurant={selectedRestaurant}
-        onClose={() => setSelectedRestaurant(null)}
-        createReview={() => setIsReviewDrawerOpen(true)}
-      />
-   {isReviewDrawerOpen && (
-  <ReviewDrawer
-    restaurant={selectedRestaurant}
-    isOpen={isReviewDrawerOpen}
-    onClose={() => setIsReviewDrawerOpen(false)}
-    writeReview={(text) => {
-      if (!text || !text.trim()) {
-        alert("Please enter a review.");
-        return;
-      }
-      console.log("Submitting review for", selectedRestaurant, text);
-      setIsReviewDrawerOpen(false);
-      setSelectedRestaurant(null);
-    }}
-  />
-)}
+      {/* Two-column layout: cards left, interactive map right */}
+      <div className="content-split">
+        <div className="left-pane">
+          <RestaurantsGrid onSelect={(r) => setSelectedRestaurant(r)} writeReview={writeReview} />
+        </div>
+        <div className="right-pane">
+          <MapView onMarkerClick={(r) => setSelectedRestaurant(r)} selectedRestaurant={selectedRestaurant} />
+        </div>
+      </div>
     </div>
   );
 }
