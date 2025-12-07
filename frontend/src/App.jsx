@@ -15,7 +15,7 @@ function App() {
       <MapView onMarkerClick={setSelectedRestaurant} />
 
       {/* Floating search bar */}
-      <SearchBar />
+      <SearchBar onQueryClick={setSelectedRestaurant}/>
 
       {/* Sliding drawer panel */}
       <RestaurantDrawer

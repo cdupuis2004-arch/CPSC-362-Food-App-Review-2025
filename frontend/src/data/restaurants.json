@@ -3,49 +3,49 @@
     "id": 1,
     "name": "Panda Express",
     "position": [33.88197, -117.88752],
-    "logo": "/pandaexpress.png",
+    "logo": "/icons/pandaexpress.png",
     "size": [50, 50]
   },
   {
     "id": 2,
     "name": "TOGO'S Sandwiches",
     "position": [33.88197, -117.88816],
-    "logo": "/togos.png",
+    "logo": "/icons/togos.png",
     "size": [50, 50]
   },
   {
     "id": 3,
     "name": "Starbucks",
     "position": [33.88139, -117.88762],
-    "logo": "/starbucks.png",
+    "logo": "/icons/starbucks.png",
     "size": [50, 50]
   },
   {
     "id": 4,
     "name": "Carl's Jr.",
     "position": [33.87940, -117.88384],
-    "logo": "/carls.png",
+    "logo": "/icons/carls.png",
     "size": [50, 50]
   },
   {
     "id": 5,
     "name": "Hibachi-San",
     "position": [33.88197, -117.88849],
-    "logo": "/hibachi-san.png",
+    "logo": "/icons/hibachi-san.png",
     "size": [50, 50]
   },
   {
     "id": 6,
     "name": "Pieology",
     "position": [33.88197, -117.88883],
-    "logo": "/pieology.png",
+    "logo": "/icons/pieology.png",
     "size": [50, 50]
   },
   {
     "id": 7,
     "name": "Baja Fresh",
     "position": [33.88197, -117.88783],
-    "logo": "/baja-fresh.png",
+    "logo": "/icons/baja-fresh.png",
     "size": [50, 50]
   }
 ]
