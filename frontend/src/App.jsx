@@ -2,6 +2,7 @@ import { useState } from "react";
 import RestaurantsGrid from "./components/RestaurantsGrid";
 import SearchBar from "./components/SearchBar";
 import MapView from "./components/MapView";
+import RestaurantDrawer from "./components/RestaurantDrawer";
 import "./App.css";
 
 function App() {
@@ -25,12 +26,15 @@ function App() {
       {/* Two-column layout: cards left, interactive map right */}
       <div className="content-split">
         <div className="left-pane">
-          <RestaurantsGrid onSelect={(r) => setSelectedRestaurant(r)} writeReview={writeReview} />
+          <RestaurantsGrid onSelect={(r) => setSelectedRestaurant(r)} />
         </div>
         <div className="right-pane">
           <MapView onMarkerClick={(r) => setSelectedRestaurant(r)} selectedRestaurant={selectedRestaurant} />
         </div>
       </div>
+
+      {/* Drawer overlays the left column when a restaurant is selected */}
+      <RestaurantDrawer restaurant={selectedRestaurant} onClose={() => setSelectedRestaurant(null)} />
 
       <footer className="site-footer">
         Titan Student Union food court

@@ -140,28 +140,12 @@ const restaurants = [
   }
 ];
 
-export default function RestaurantsGrid({ onSelect, writeReview }) {
-  const [expandedId, setExpandedId] = useState(null);
-  const [text, setText] = useState("");
-  const MAX = 300;
-  const textareaRef = useRef(null);
-
-  useEffect(() => {
-    if (expandedId && textareaRef.current) textareaRef.current.focus();
-  }, [expandedId]);
-
-  const submitReview = (r) => {
-    if (!text.trim()) return;
-    writeReview && writeReview(r, text.trim());
-    setText("");
-    setExpandedId(null);
-  };
-
+export default function RestaurantsGrid({ onSelect }) {
   return (
     <div className="restaurant-grid">
       {restaurants.map((r) => (
         <div key={r.id} className="restaurant-card">
-          <div className={`card-top ${r.id === 10 ? 'fresh-kitchen-image' : ''}`} onClick={() => setExpandedId(expandedId === r.id ? null : r.id)}>
+          <div className={`card-top ${r.id === 10 ? 'fresh-kitchen-image' : ''}`} onClick={() => onSelect && onSelect(r)}>
             <img src={r.image || r.logo || "/placeholder.png"} alt={r.name} />
             <div className="rating-badge">{r.avgRating?.toFixed(1) || "—"}</div>
           </div>
@@ -172,37 +156,11 @@ export default function RestaurantsGrid({ onSelect, writeReview }) {
 
             <div className="card-actions">
               <button
-                onClick={() => {
-                  // toggle inline review panel for this card
-                  setExpandedId(expandedId === r.id ? null : r.id);
-                  onSelect && onSelect(r);
-                }}
+                onClick={() => onSelect && onSelect(r)}
               >
-                Leave a Review
+                View / Leave a Review
               </button>
             </div>
-
-            {expandedId === r.id && (
-              <div className="card-dropdown">
-                <div className="dropdown-content">
-                  <h4>Write a review for {r.name}</h4>
-                  <textarea
-                    ref={textareaRef}
-                    className="review-textarea"
-                    placeholder="Write your review here..."
-                    value={text}
-                    onChange={(e) => setText(e.target.value.slice(0, MAX))}
-                    maxLength={MAX}
-                    rows={6}
-                  />
-                  <div style={{ fontSize: 12, color: '#666', marginTop: 6 }}>{text.length}/{MAX}</div>
-                  <div style={{ marginTop: 8 }}>
-                    <button onClick={() => submitReview(r)} disabled={!text.trim()}>Submit Review</button>
-                    <button onClick={() => { setExpandedId(null); setText(''); }} style={{ marginLeft: 8 }}>Cancel</button>
-                  </div>
-                </div>
-              </div>
-            )}
           </div>
         </div>
       ))}
