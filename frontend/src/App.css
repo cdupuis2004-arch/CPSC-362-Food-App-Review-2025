@@ -30,8 +30,8 @@ html, body, #root {
 }
 
 .right-pane {
-  width: 40vw;
-  max-width: 1400px;
+  width: 80vw;
+  max-width: 1150px;
   position: sticky;
   top: 24px; /* stay below top buffer */
   height: calc(100vh - 24px);
@@ -46,7 +46,7 @@ html, body, #root {
 .content-split {
   display: grid;
   grid-template-columns: 1.1fr 0.9fr;
-  gap: 0px;
+  gap: 20px;
   padding: 20px;
   box-sizing: border-box;
 }
