@@ -17,37 +17,42 @@ const restaurants = [
   {
     id: 2,
     name: "Panda Express",
-    image: "/pandaexpress.png",
+    image: "/PandaExpressBanner.png",
     avgRating: 3.8,
-    info: "Fast Chinese food"
+    info: "Fast Chinese food",
+    location: "Titan Student Union food court"
   },
   {
     id: 3,
     name: "Carl's Jr.",
     image: "/CarlsJrBanner.png",
     avgRating: 4.0,
-    info: "Burgers and fries"
+    info: "Burgers and fries",
+    location: "Near Gordon Hall and Langsdorf Hall"
   },
   {
     id: 4,
     name: "Starbucks 1",
     image: "/StarbucksBanner.png",
     avgRating: 4.4,
-    info: "Coffee shop"
+    info: "Coffee shop",
+    location: "Titan Student Union food court"
   },
   {
     id: 5,
     name: "Starbucks 2",
     image: "/StarbucksBanner.png",
     avgRating: 4.1,
-    info: "Coffee shop"
+    info: "Coffee shop",
+    location: "Pollak Library"
   },
   {
     id: 6,
     name: "Starbucks 3",
     image: "/StarbucksBanner.png",
     avgRating: 3.9,
-    info: "Coffee shop"
+    info: "Coffee shop",
+    location: "Mihaylo Hall"
   }
   ,
   {
@@ -55,14 +60,16 @@ const restaurants = [
     name: "Avanti Markets",
     image: "/AvantiBanner.png",
     avgRating: 2,
-    info: "Shop, Scan, Go!"
+    info: "Shop, Scan, Go!",
+    location: "Nutwood Café"
   },
   {
     id: 8,
     name: "Baja Fresh Express",
     image: "/BajaBanner.png",
     avgRating: 2,
-    info: "Fresh Tex-Mex burritos and tacos"
+    info: "Fresh Tex-Mex burritos and tacos",
+    location: "Titan Student Union food court"
   },
 
   //id 9 was removed, replaced Burger King with Carl's Jr. (there is no BK on campus)  
@@ -70,51 +77,66 @@ const restaurants = [
   {
     id: 10,
     name: "Fresh Kitchen",
-    image: "/placeholder.png", // could not find a decent image that didn't say FK
+    image: "/FreshKitchenBanner.png",
     avgRating: 2,
-    info: "Custom healthy bowls"
+    info: "Custom healthy bowls",
+    location: "Titan Student Union food court"
   },
   {
     id: 11,
     name: "Hibachi-San",
     image: "/HibachiBanner.jpg",
     avgRating: 2,
-    info: "Fast Japanese bowls and hibachi food"
+    info: "Fast Japanese bowls and hibachi food",
+    location: "Titan Student Union food court"
   },
   {
     id: 12,
     name: "Juice It Up",
-    image: "/placeholder.png", // low quaility images so far
+    image: "/JuiceItUpBanner.png",
     avgRating: 2,
-    info: "Fresh smoothies, juices, and superfruit bowls"
+    info: "Fresh smoothies, juices, and superfruit bowls",
+    location: "Titan Student Union food court"
   },
   {
     id: 13,
     name: "Pieology",
     image: "/PieologyBanner.jpg",
     avgRating: 2,
-    info: "Custom-made personal pizzas to go"
+    info: "Custom-made personal pizzas to go",
+    location: "Titan Student Union food court"
   },
   {
     id: 14,
     name: "The Brief Stop",
-    image: "/placeholder.png", // need to find suitable image
+    image: "/TheBriefStopBanner.png", 
     avgRating: 2,
-    info: "placeholder"
+    info: "Convenience Store",
+    location: "Langsdorf Hall"
   },
   {
     id: 15,
     name: "The Yum",
-    image: "/placeholder.png", // need to find suitable image
+    image: "/TheYumBanner.png", 
     avgRating: 2,
-    info: "placeholder"
+    info: "Convenience Store",
+    location: "Titan Student Union"
   },
   {
     id: 16,
     name: "TOGO'S",
     image: "/TOGOBanner.png",
     avgRating: 2,
-    info: "Made0to-order sandwiches"
+    info: "Made-to-order sandwiches",
+    location: "Titan Student Union food court"
+  },
+  {
+    id: 17,
+    name: "Aloha Java",
+    image: "/AlohaJavaBanner.png",
+    avgRating: 4.2,
+    info: "Relaxed cafe with Hawaiian-style coffee & light bites",
+    location: "Near Humanities Building and University Hall"
   }
 ];
 
@@ -139,13 +161,14 @@ export default function RestaurantsGrid({ onSelect, writeReview }) {
     <div className="restaurant-grid">
       {restaurants.map((r) => (
         <div key={r.id} className="restaurant-card">
-          <div className="card-top" onClick={() => setExpandedId(expandedId === r.id ? null : r.id)}>
+          <div className={`card-top ${r.id === 10 ? 'fresh-kitchen-image' : ''}`} onClick={() => setExpandedId(expandedId === r.id ? null : r.id)}>
             <img src={r.image || r.logo || "/placeholder.png"} alt={r.name} />
             <div className="rating-badge">{r.avgRating?.toFixed(1) || "—"}</div>
           </div>
           <div className="card-bottom">
             <h3 className="card-title">{r.name}</h3>
             <p className="card-info">{r.info}</p>
+            {r.location && <p className="card-location">{r.location}</p>}
 
             <div className="card-actions">
               <button

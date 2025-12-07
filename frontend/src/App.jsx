@@ -31,6 +31,10 @@ function App() {
           <MapView onMarkerClick={(r) => setSelectedRestaurant(r)} selectedRestaurant={selectedRestaurant} />
         </div>
       </div>
+
+      <footer className="site-footer">
+        Titan Student Union food court
+      </footer>
     </div>
   );
 }
