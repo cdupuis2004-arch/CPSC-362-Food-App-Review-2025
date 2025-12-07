@@ -17,7 +17,7 @@ const restaurants = [
   {
     id: 2,
     name: "Panda Express",
-    image: "/panda.png",
+    image: "/pandaexpress.png",
     avgRating: 3.8,
     info: "Fast Chinese food"
   },
