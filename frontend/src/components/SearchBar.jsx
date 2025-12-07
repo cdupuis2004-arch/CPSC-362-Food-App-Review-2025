@@ -1,11 +1,11 @@
 import { useState } from "react";
-import restaurantsData from "../data/restaurants.json";
+import restaurants from "../data/restaurants.json";
 import "./SearchBar.css"
 
 export default function SearchBar({onQueryClick}) {
     const [query, setQuery] = useState("");
 
-    const filtered = restaurantsData.filter(r =>
+    const filtered = restaurants.filter(r =>
         r.name.toLowerCase().includes(query.toLowerCase())
     );
 

@@ -47,5 +47,12 @@
     "position": [33.88197, -117.88783],
     "logo": "/icons/baja-fresh.png",
     "size": [50, 50]
+  },
+  {
+    "id": 8,
+    "name": "Titan Eats",
+    "position": [33.88315, -117.88233],
+    "logo": "/icons/titan-eats.png",
+    "size": [50, 50]
   }
 ]
