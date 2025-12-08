@@ -49,6 +49,7 @@ function ReviewsCarousel({ restaurant }) {
         track.scrollTo({ left, behavior: 'smooth' });
       } catch (e) {
         // fallback to setting scrollLeft directly
+        console.error('Failed to scroll reviews', e);
         track.scrollLeft = left;
       }
     }
@@ -81,6 +82,9 @@ export default function RestaurantDrawer({ restaurant, onClose }) {
       {restaurant && (
         <>
           {/* Banner stays fixed at the top */}
+          <div className="close-btn-container" onClick={onClose}>
+            <button className="drawer-close" onClick={onClose}>✕</button>
+          </div>
           <div className="drawer-banner">
             <img
               src={restaurant.image || restaurant.logo || '/placeholder.png'}
@@ -94,8 +98,6 @@ export default function RestaurantDrawer({ restaurant, onClose }) {
 
           {/* Scrollable content below banner */}
           <div className="drawer-inner">
-            <button className="drawer-close" onClick={onClose}>✕</button>
-
             {/* Recent reviews carousel */}
             <section className="drawer-section">
               <h3>Recent Reviews</h3>

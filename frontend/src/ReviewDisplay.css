@@ -1,34 +1,4 @@
-.review-container-placer {
-    width: 100%;
-    margin-top: 20px;
-}
-
-/* Restaurant Header with Logo */
-.restaurant-header {
-    display: flex;
-    align-items: center;
-    gap: 15px;
-    margin-bottom: 20px;
-    padding: 15px;
-    background-color: #2a2a2a;
-    border-radius: 8px;
-}
-
-.restaurant-logo {
-    width: 60px;
-    height: 60px;
-    object-fit: contain;
-    border-radius: 8px;
-    background-color: white;
-    padding: 5px;
-}
-
-.restaurant-header h3 {
-    margin: 0;
-    font-size: 1.4em;
-    color: #646cff;
-}
-
+/* Headings */
 .review-container-placer h3 {
     margin-bottom: 15px;
     font-size: 1.2em;
@@ -43,8 +13,11 @@
     padding: 15px;
     background-color: #2a2a2a;
     border-radius: 8px;
+
+    filter: drop-shadow(0px 0px 6px rgba(0, 0, 0, 0.2));
 }
 
+/* Inputs, selects, textarea all share styling */
 .review-form input,
 .review-form select,
 .review-form textarea {
@@ -56,11 +29,13 @@
     font-family: inherit;
 }
 
+/* Textarea specific overrides */
 .review-form textarea {
     min-height: 60px;
     resize: vertical;
 }
 
+/* Main form button */
 .review-form button {
     padding: 10px;
     background-color: #646cff;
@@ -75,6 +50,7 @@
     background-color: #535bf2;
 }
 
+/* Form action area (edit/cancel group) */
 .form-actions {
     display: flex;
     justify-content: flex-end;
@@ -91,39 +67,25 @@
 
 /* Reviews Container */
 .reviewContainer {
-    /* allow the drawer to handle vertical scrolling */
     border-radius: 8px;
     background-color: #2a2a2a;
     padding: 10px;
+
+    filter: drop-shadow(0px 0px 6px rgba(0, 0, 0, 0.2));
 }
 
-/* Carousel tweaks for recent reviews inside the drawer */
-.reviews-carousel .carousel-track {
-    gap: 12px;
-}
-.carousel-slide {
-    background: #1a1a1a;
-    color: #ddd;
-}
-
-.reviewScroll {
-    /* let the parent drawer scroll; avoid internal scrollbars */
-    overflow-y: visible;
-    max-height: none;
-}
-
+/* Single Review Block */
 .review {
-    padding: 12px;
+    position: relative;
+    padding: 12px 12px 32px; /* merged into one line */
     margin-bottom: 10px;
     background-color: #1a1a1a;
     border-radius: 6px;
     border-left: 3px solid #646cff;
-    position: relative;
-    padding-bottom: 32px;
 }
 
 .review h4 {
-    margin: 0 0 5px 0;
+    margin: 0 0 5px;
     color: #646cff;
     font-size: 0.95em;
 }
@@ -141,6 +103,7 @@
     margin-top: 5px;
 }
 
+/* Edit button */
 .edit-btn {
     position: absolute;
     bottom: 6px;

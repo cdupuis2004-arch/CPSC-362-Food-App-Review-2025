@@ -1,5 +1,4 @@
-import { MapContainer, TileLayer, Marker, useMap } from "react-leaflet";
-import { useEffect } from "react";
+import { MapContainer, TileLayer, Marker } from "react-leaflet";
 import "leaflet/dist/leaflet.css";
 import "./MapView.css";
 import L from "leaflet";
@@ -22,7 +21,7 @@ export default function MapView({ onMarkerClick }) {
           key={r.id}
           position={r.position}
           icon={L.divIcon({
-            html: `<img src="${r.logo}" class="map-icon" />`,
+            html: `<img alt={r.name + " logo"} src="${r.logo}" class="map-icon" />`,
             className: `marker marker-${r.id}`,
             iconSize: r.size
           })}
