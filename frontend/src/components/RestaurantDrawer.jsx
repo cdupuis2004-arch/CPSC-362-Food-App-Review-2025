@@ -86,11 +86,7 @@ export default function RestaurantDrawer({ restaurant, onClose }) {
             <button className="drawer-close" onClick={onClose}>✕</button>
           </div>
           <div className="drawer-banner">
-            <img
-              src={restaurant.image || restaurant.logo || '/placeholder.png'}
-              alt={restaurant.name}
-              onError={(e) => e.target.style.display='none'}
-            />
+           <img src={restaurant.image || '/placeholder.png'} alt={restaurant.name} onError={(e) => e.target.style.display='none'} />
             <div className="drawer-title">
               <h2>{restaurant.name}</h2>
             </div>
