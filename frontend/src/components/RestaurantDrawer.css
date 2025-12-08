@@ -3,8 +3,8 @@
   top: 0;
   bottom: 0;
   left: 20px;
-  width: calc(35% - 40px);
-  max-width: 900px;
+  width: calc(35% - 20px); /* match left-pane 35% minus container gap/padding */
+  max-width: 35%;           /* ensures it never exceeds 35% of viewport */
   background: white;
   padding: 0;
   box-shadow: 2px 0 12px rgba(0,0,0,0.35);
@@ -19,6 +19,7 @@
 .restaurant-drawer.open {
   transform: translateX(0);
 }
+
 
 .drawer-inner {
   display: flex;
