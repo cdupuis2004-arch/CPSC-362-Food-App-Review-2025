@@ -45,10 +45,6 @@ function App() {
 
       {/* Drawer overlays the left column when a restaurant is selected */}
       <RestaurantDrawer restaurant={selectedRestaurant} onClose={() => setSelectedRestaurant(null)} />
-
-      <footer className="site-footer">
-        Titan Student Union food court
-      </footer>
     </div>
   );
 }

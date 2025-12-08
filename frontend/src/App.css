@@ -1,15 +1,20 @@
-html, body, #root {
+html, body {
   height: 100%;
   margin: 0;
   padding: 0;
-  overscroll-behavior-y: contain; /* prevent scroll chaining/looping at edges */
-  overflow: hidden; /* hide global scrollbar; left pane remains scrollable */
+  overscroll-behavior-y: contain;
+  overflow-y: scroll;   /* allow scrolling */
+  scrollbar-width: none; /* Firefox */
+}
+
+html::-webkit-scrollbar,
+body::-webkit-scrollbar {
+  display: none; /* Chrome/Safari/Edge */
 }
 
 .app-container {
   position: relative;
   width: 100%;
-  min-height: 100vh;
   overflow: visible;
   padding-top: 40px; /* buffer at top so top-left card/review isn't overlapped */
 }
@@ -25,16 +30,45 @@ html, body, #root {
 .left-pane {
   flex: 1 1 0;
   width: 650px;
-  max-height: calc(100vh - 24px); /* account for top padding */
-  overflow: auto; /* scroll restaurants independently */
+  height: 90vh;
+  overflow: auto;
+
+  opacity: 0;
+  transform: translateX(-20px);
+  animation: leftPaneIn 0.6s ease-out forwards;
+}
+
+@keyframes leftPaneIn {
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
 }
 
 .right-pane {
-  width: 80vw;
-  position: sticky;
-  top: 24px; /* stay below top buffer */
-  height: calc(100vh - 24px);
-  align-self: flex-start;
+  right: 40px;                 /* aligns with your app-container padding */
+  margin: 0;              /* 20px breathing room left/right */
+
+  width: 100%;
+
+  height: 90vh;  /* 40px top padding + 40px safety space */
+  box-sizing: border-box;
+
+  overflow: hidden;            /* keeps map tidy inside panel */
+  border-radius: 12px;
+  box-shadow: 0 8px 24px rgba(0,0,0,0.18);
+
+  /* Entry animation */
+  opacity: 0;
+  transform: translateX(20px);
+  animation: rightPaneIn 0.45s ease-out forwards;
+}
+
+@keyframes rightPaneIn {
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
 }
 
 .right-pane .leaflet-container {
@@ -44,24 +78,10 @@ html, body, #root {
 
 .content-split {
   display: grid;
-  grid-template-columns: 1.1fr 0.9fr;
+  grid-template-columns: 0.35fr 0.9fr;
   gap: 20px;
   padding: 20px;
   box-sizing: border-box;
-}
-
-.left-pane {
-  min-width: 0;
-}
-
-.right-pane {
-  min-width: 320px;
-  height: calc(100vh - 80px);
-  position: sticky;
-  top: 60px;
-  border-radius: 12px;
-  overflow: hidden;
-  box-shadow: 0 8px 24px rgba(0,0,0,0.18);
 }
 
 @media (max-width: 1024px) {
@@ -73,11 +93,6 @@ html, body, #root {
     height: 60vh;
     top: 0;
   }
-}
-
-.leaflet-container {
-  height: 100%;
-  width: 100%;
 }
 
 /* Review Drawer Panel */
