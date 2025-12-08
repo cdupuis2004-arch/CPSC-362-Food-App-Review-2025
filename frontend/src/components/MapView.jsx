@@ -21,7 +21,7 @@ export default function MapView({ onMarkerClick }) {
           key={r.id}
           position={r.position}
           icon={L.divIcon({
-            html: `<img alt={r.name + " logo"} src="${r.logo}" class="map-icon" />`,
+            html: `<img alt={r.name + " logo"} src="${r.icon}" class="map-icon" />`,
             className: `marker marker-${r.id}`,
             iconSize: r.size
           })}

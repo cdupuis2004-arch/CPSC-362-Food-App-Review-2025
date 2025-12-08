@@ -2,65 +2,166 @@
   {
     "id": 1,
     "name": "Panda Express",
+    "banner": "/banners/PandaExpressBanner.png",
+    "icon": "/icons/pandaexpress.png",
+    "size": [50, 50],
     "position": [33.88197, -117.88752],
-    "image": "/PandaExpressBanner.png",
-    "logo": "/icons/pandaexpress.png",
-    "size": [50, 50]
+    "avgRating": 3.8,
+    "info": "Fast Chinese food",
+    "location": "Titan Student Union food court"
   },
   {
     "id": 2,
-    "name": "TOGO'S Sandwiches",
-    "position": [33.88197, -117.88816],
-    "logo": "/icons/togos.png",
+    "name": "Carl's Jr.",
+    "banner": "/banners/CarlsJrBanner.png",
+    "icon": "/icons/carls.png",
     "size": [50, 50],
-    "image": "/TOGOBanner.png"
+    "position": [33.87940, -117.88384],
+    "avgRating": 4.0,
+    "info": "Burgers and fries",
+    "location": "Near Gordon Hall and Langsdorf Hall"
   },
   {
     "id": 3,
-    "name": "Starbucks",
+    "name": "Starbucks (Student Union Food court)",
+    "banner": "/banners/StarbucksBannerSUFC.png",
+    "icon": "/icons/starbucks.png",
+    "size": [50, 50],
     "position": [33.88139, -117.88762],
-    "image": "/StarbucksBanner.png",
-    "logo": "/icons/starbucks.png",
-    "size": [50, 50]
+    "avgRating": 4.4,
+    "info": "Coffee shop",
+    "location": "Titan Student Union food court"
   },
   {
     "id": 4,
-    "name": "Carl's Jr.",
-    "position": [33.87940, -117.88384],
-    "logo": "/icons/carls.png",
+    "name": "Starbucks (Pollak Library)",
+    "banner": "/banners/StarbucksBannerPollakLibrary.png",
+    "icon": "/icons/starbucks.png",
     "size": [50, 50],
-    "image": "/CarlsJrBanner.png"
+    "position": [33.88157, -117.88533],
+    "avgRating": 4.1,
+    "info": "Coffee shop",
+    "location": "Pollak Library"
   },
   {
     "id": 5,
-    "name": "Hibachi-San",
-    "position": [33.88197, -117.88849],
-    "logo": "/icons/hibachi-san.png",
+    "name": "Starbucks (Mihaylo Hall)",
+    "banner": "/banners/StarBucksBannerMihayloHall.png",
+    "icon": "/icons/starbucks.png",
     "size": [50, 50],
-    "image": "/HibachiBanner.jpg"
-  },
-  {
-    "id": 6,
-    "name": "Pieology",
-    "position": [33.88197, -117.88883],
-    "logo": "/icons/pieology.png",
-    "size": [50, 50],
-    "image": "/PieologyBanner.jpg"
+    "position": [33.87900, -117.88312],
+    "avgRating": 3.9,
+    "info": "Coffee shop",
+    "location": "Mihaylo Hall"
   },
   {
     "id": 7,
     "name": "Baja Fresh",
-    "position": [33.88197, -117.88783],
-    "logo": "/icons/baja-fresh.png",
+    "banner": "/banners/BajaBanner.png",
+    "icon": "/icons/baja-fresh.png",
     "size": [50, 50],
-    "image": "/BajaBanner.png"
+    "position": [33.88185, -117.88783],
+    "avgRating": 2,
+    "info": "Fresh Tex-Mex burritos and tacos",
+    "location": "Titan Student Union food court"
   },
   {
     "id": 8,
-    "name": "Titan Eats",
-    "position": [33.88315, -117.88233],
-    "logo": "/icons/titan-eats.png",
+    "name": "Fresh Kitchen",
+    "banner": "/banners/FreshKitchenBanner.png",
+    "icon": "/icons/FreshKitchen.png",
     "size": [50, 50],
-    "image": "/icons/titan-eats.png"
+    "position": [33.88159, -117.88813],
+    "avgRating": 2,
+    "info": "Custom healthy bowls",
+    "location": "Titan Student Union food court"
+  },
+  {
+    "id": 9,
+    "name": "Hibachi-San",
+    "banner": "/banners/HibachiBanner.jpg",
+    "icon": "/icons/hibachi-san.png",
+    "size": [50, 50],
+    "position": [33.88185, -117.88849],
+    "avgRating": 2,
+    "info": "Fast Japanese bowls and hibachi food",
+    "location": "Titan Student Union food court"
+  },
+  {
+    "id": 10,
+    "name": "Juice It Up",
+    "banner": "/banners/JuiceItUpBanner.png",
+    "icon": "/icons/juice-it-up.png",
+    "size": [50, 50],
+    "position": [33.88157, -117.88783],
+    "avgRating": 2,
+    "info": "Fresh smoothies, juices, and bowls",
+    "location": "Titan Student Union food court"
+  },
+  {
+    "id": 11,
+    "name": "Pieology",
+    "banner": "/banners/PieologyBanner.jpg",
+    "icon": "/icons/pieology.png",
+    "size": [50, 50],
+    "position": [33.88197, -117.88883],
+    "avgRating": 2,
+    "info": "Custom personal pizzas",
+    "location": "Titan Student Union food court"
+  },
+  {
+    "id": 12,
+    "name": "The Brief Stop",
+    "banner": "/banners/TheBriefStopBanner.png",
+    "icon": "/icons/the-brief-stop.png",
+    "size": [50, 50],
+    "position": [33.87902, -117.88483],
+    "avgRating": 2,
+    "info": "Convenience store",
+    "location": "Langsdorf Hall"
+  },
+  {
+    "id": 13,
+    "name": "The Yum",
+    "banner": "/banners/TheYumBanner.png",
+    "icon": "/icons/the-yum.png",
+    "size": [50, 50],
+    "position": [33.88157, -117.88873],
+    "avgRating": 2,
+    "info": "Convenience store",
+    "location": "Titan Student Union"
+  },
+  {
+    "id": 14,
+    "name": "TOGO'S Sandwiches",
+    "banner": "/banners/TOGOBanner.png",
+    "icon": "/icons/togos.png",
+    "size": [50, 50],
+    "position": [33.88197, -117.88816],
+    "avgRating": 2,
+    "info": "Made-to-order sandwiches",
+    "location": "Titan Student Union food court"
+  },
+  {
+    "id": 15,
+    "name": "Aloha Java",
+    "banner": "/banners/AlohaJavaBanner.png",
+    "icon": "/icons/aloha-java.png",
+    "size": [50, 50],
+    "position": [33.88017, -117.88423],
+    "avgRating": 4.2,
+    "info": "Hawaiian-style coffee & bites",
+    "location": "Near Humanities Building and University Hall"
+  },
+  {
+    "id": 16,
+    "name": "Titan Eats",
+    "banner": "/banners/titan-eatsBanner.png",
+    "icon": "/icons/titan-eats.png",
+    "size": [50, 50],
+    "position": [33.88315, -117.88233],
+    "avgRating": 4.1,
+    "info": "Campus essentials & snacks",
+    "location": "Near Humanities Building and University Hall"
   }
 ]

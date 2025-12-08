@@ -86,17 +86,18 @@ export default function RestaurantDrawer({ restaurant, onClose }) {
             <button className="drawer-close" onClick={onClose}>✕</button>
           </div>
           <div className="drawer-banner">
-           <img src={restaurant.image || '/placeholder.png'} alt={restaurant.name} onError={(e) => e.target.style.display='none'} />
-            <div className="drawer-title">
-              <h2>{restaurant.name}</h2>
-            </div>
+           <img src={restaurant.banner || '/placeholder.png'} alt={restaurant.name} onError={(e) => e.target.style.display='none'} />
+          </div>
+
+          <div className="restaurant-icon">
+            <img alt={restaurant.name + " logo"} src={restaurant.icon} />
           </div>
 
           {/* Scrollable content below banner */}
           <div className="drawer-inner">
             {/* Recent reviews carousel */}
             <section className="drawer-section">
-              <h3>Recent Reviews</h3>
+              <h2 style={{ fontSize: "32px" }}>{restaurant.name}</h2>
               <ReviewsCarousel restaurant={restaurant} />
             </section>
 

@@ -112,7 +112,7 @@ function ReviewDisplay({ restaurant, showHeader = true }) {
                     {showHeader && restaurant && (
                         <div className="restaurant-header">
                             <img 
-                                src={restaurant.logo}
+                                src={restaurant.icon}
                                 alt={`${restaurant.name} logo`}
                                 className="restaurant-logo"
                                 onError={(e) => e.target.style.display = 'none'}
@@ -139,8 +139,8 @@ function ReviewDisplay({ restaurant, showHeader = true }) {
                     <option value={1}>★☆☆☆☆</option>
                 </select>
                 <textarea 
-                    placeholder="Write your review..." 
-                    value={comment} 
+                    placeholder="Write your review..."
+                    value={comment}
                     onChange={e => setComment(e.target.value)}
                     required
                 />

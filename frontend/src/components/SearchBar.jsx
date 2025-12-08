@@ -26,7 +26,7 @@ export default function SearchBar({onQueryClick}) {
                     {filtered.length > 0 ? (
                         filtered.map((r) => (
                             <div onClick={() => {onQueryClick(r); setQuery(r.name); }} key={r.id} className="search-result-item">
-                                <img alt={r.name + " logo"} className="search-result-logo" src={r.logo}/>
+                                <img alt={r.name + " logo"} className="search-result-logo" src={r.icon}/>
                                 {r.name}
                             </div>
                         ))

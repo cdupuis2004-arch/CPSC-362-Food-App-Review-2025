@@ -32,14 +32,31 @@
   }
 }
 
+.restaurant-icon img {
+  position: absolute;
+  top: 160px;
+  left: 35px;
+  height: 115px;
+  object-fit: contain; /* prevents distortion */
+  flex-shrink: 0;       /* ensures it doesn't warp inside flex layouts */
+  z-index: 9999;
+
+  border-radius: 12px;
+  filter: drop-shadow(0 0 8px rgba(0,0,0,0.2));
+}
+
 /* Inner Layout */
-.drawer-inner {
+.drawer-inner img {
   display: flex;
   flex-direction: column;
   height: 50%;
   width: 100%;
   border-radius: 12px;
   -webkit-overflow-scrolling: touch;
+}
+
+.drawer-section {
+  padding-top: 10px;
 }
 
 /* Close Button */
