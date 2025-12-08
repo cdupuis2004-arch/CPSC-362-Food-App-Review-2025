@@ -4,6 +4,8 @@ html, body, #root {
   padding: 0;
   overscroll-behavior-y: contain; /* prevent scroll chaining/looping at edges */
   overflow: hidden; /* hide global scrollbar; left pane remains scrollable */
+  background: #121212;
+  color: #fff;
 }
 
 .app-container {
@@ -12,6 +14,7 @@ html, body, #root {
   min-height: 100vh;
   overflow: visible;
   padding-top: 40px; /* buffer at top so top-left card/review isn't overlapped */
+  background: #121212;
 }
 
 /* Two-column layout: left scrolls, right map stays visible */
@@ -90,20 +93,21 @@ html, body, #root {
   max-width: 1000px;
   min-width: 360px;
   height: 80%;
-  background: #f9f9f9;
+  background: #1e1e1e;
   padding: 20px;
-  box-shadow: 0 8px 24px rgba(0,0,0,0.2);
+  box-shadow: 0 8px 24px rgba(0,0,0,0.5);
   transition: transform 300ms cubic-bezier(.2,.9,.3,1), opacity 300ms ease;
   opacity: 0;
   z-index: 900;
   overflow-y: auto;
   border-radius: 24px;
   overflow-x: hidden;
+  color: #fff;
 }
 
 .review-drawer.open {
   transform: translate(-50%, 0); /* moved into place */
-  background: #f9f9f9;
+  background: #1e1e1e;
   opacity: 1;
 }
 /* Restaurants grid layout */
@@ -116,12 +120,13 @@ html, body, #root {
 }
 
 .restaurant-card {
-  background: #fff;
+  background: #1e1e1e;
   border-radius: 10px;
   overflow: visible; /* allow select dropdown to overflow */
-  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+  box-shadow: 0 2px 8px rgba(0,0,0,0.3);
   display: flex;
   flex-direction: column;
+  color: #fff;
 }
 
 .card-top {
@@ -180,7 +185,7 @@ html, body, #root {
 }
 
 .card-title { margin: 0; font-size: 16px; }
-.card-info { margin: 0; color: #555; font-size: 14px; }
+.card-info { margin: 0; color: #fff; font-size: 14px; }
 
 .card-actions { display:flex; gap:8px; align-items:center; margin-top:8px; }
 .card-actions select { padding:6px; }
@@ -198,4 +203,72 @@ html, body, #root {
   max-height: 60vh;
   overflow-y: auto;
   width: 100%;
+}
+
+/* Theme Toggle Button */
+.theme-toggle {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  z-index: 2000;
+  background: #333;
+  border: 2px solid #555;
+  color: #fff;
+  font-size: 14px;
+  font-weight: 600;
+  padding: 10px 16px;
+  border-radius: 8px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+}
+
+.theme-toggle:hover {
+  background: #444;
+  box-shadow: 0 6px 16px rgba(0,0,0,0.4);
+  transform: scale(1.05);
+}
+
+/* Light Mode Styles */
+.light-mode {
+  background: #f5f5f5 !important;
+  color: #333 !important;
+}
+
+.light-mode .app-container {
+  background: #f5f5f5 !important;
+}
+
+.light-mode .restaurant-card {
+  background: #fff !important;
+  color: #333 !important;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+}
+
+.light-mode .card-info {
+  color: #666 !important;
+}
+
+.light-mode .card-location {
+  color: #999 !important;
+}
+
+.light-mode .review-drawer,
+.light-mode .review-drawer.open {
+  background: #fff !important;
+  color: #333 !important;
+  box-shadow: 0 8px 24px rgba(0,0,0,0.1);
+}
+
+.light-mode .theme-toggle {
+  background: #ddd;
+  border-color: #999;
+  color: #333;
+}
+
+.light-mode .theme-toggle:hover {
+  background: #ccc;
 }

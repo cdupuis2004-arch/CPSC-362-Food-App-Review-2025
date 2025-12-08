@@ -32,7 +32,7 @@ const restaurants = [
   },
   {
     id: 4,
-    name: "Starbucks 1",
+    name: "Starbucks at TSU",
     image: "/StarbucksBanner.png",
     avgRating: 4.4,
     info: "Coffee shop",
@@ -40,7 +40,7 @@ const restaurants = [
   },
   {
     id: 5,
-    name: "Starbucks 2",
+    name: "Starbucks at Pollak",
     image: "/StarbucksBanner.png",
     avgRating: 4.1,
     info: "Coffee shop",
@@ -48,7 +48,7 @@ const restaurants = [
   },
   {
     id: 6,
-    name: "Starbucks 3",
+    name: "Starbucks at Mihaylo",
     image: "/StarbucksBanner.png",
     avgRating: 3.9,
     info: "Coffee shop",

@@ -7,6 +7,11 @@ import "./App.css";
 
 function App() {
   const [selectedRestaurant, setSelectedRestaurant] = useState(null);
+  const [isDarkMode, setIsDarkMode] = useState(true);
+
+  const toggleTheme = () => {
+    setIsDarkMode(!isDarkMode);
+  };
 
   const writeReview = (restaurant, text) => {
     if (!text || !text.trim()) {
@@ -19,7 +24,12 @@ function App() {
     setSelectedRestaurant(null);
   };
   return (
-    <div className="app-container">
+    <div className={`app-container ${isDarkMode ? 'dark-mode' : 'light-mode'}`}>
+      {/* Theme toggle button */}
+      <button className="theme-toggle" onClick={toggleTheme} title={isDarkMode ? 'Switch to Light Mode' : 'Switch to Dark Mode'}>
+        {isDarkMode ? 'Light Mode' : 'Dark Mode'}
+      </button>
+
       {/* Floating search bar */}
       <SearchBar onQueryClick={setSelectedRestaurant}/>
 
