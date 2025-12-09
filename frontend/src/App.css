@@ -47,9 +47,9 @@ body::-webkit-scrollbar {
 
 .right-pane {
   right: 40px;                 /* aligns with your app-container padding */
-  margin: 0;              /* 20px breathing room left/right */
+  margin: 10px;              /* 20px breathing room left/right */
 
-  width: 100%;
+  width: 110%;
 
   height: 90vh;  /* 40px top padding + 40px safety space */
   box-sizing: border-box;
