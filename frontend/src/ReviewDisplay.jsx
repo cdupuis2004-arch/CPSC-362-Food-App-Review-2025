@@ -86,12 +86,13 @@ function ReviewDisplay({ restaurant, showHeader = true }) {
         }
     }
 
-    function startEdit(review) {
-        setEditingId(review._id);
-        setName(review.name);
-        setComment(review.comment);
-        setRating(review.ratingNumber || 5);
-    }
+    // Edit button function - disabled
+    // function startEdit(review) {
+    //     setEditingId(review._id);
+    //     setName(review.name);
+    //     setComment(review.comment);
+    //     setRating(review.ratingNumber || 5);
+    // }
 
     function cancelEdit() {
         setEditingId(null);
@@ -167,9 +168,11 @@ function ReviewDisplay({ restaurant, showHeader = true }) {
                                 <h4>{r.name}</h4>
                                 <p>{r.comment}</p>
                                 <span className="rating">{r.rating}</span>
+                                {/* Edit button - disabled
                                 <button className="edit-btn" type="button" onClick={() => startEdit(r)} title="Edit review">
                                     ✏️
                                 </button>
+                                */}
                             </div>
                         ))
                     )}
