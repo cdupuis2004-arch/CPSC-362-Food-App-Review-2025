@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import RestaurantsGrid from "./components/RestaurantsGrid";
 import SearchBar from "./components/SearchBar";
 import MapView from "./components/MapView";
@@ -8,6 +8,11 @@ import "./App.css";
 function App() {
   const [selectedRestaurant, setSelectedRestaurant] = useState(null);
   const [isDarkMode, setIsDarkMode] = useState(true);
+
+  useEffect(() => {
+    document.body.style.backgroundColor = isDarkMode ? '#121212' : '#f5f5f5';
+    document.body.style.color = isDarkMode ? '#fff' : '#333';
+  }, [isDarkMode]);
 
   const toggleTheme = () => {
     setIsDarkMode(!isDarkMode);
@@ -36,7 +41,7 @@ function App() {
       {/* Two-column layout: cards left, interactive map right */}
       <div className="content-split">
         <div className="left-pane">
-          <RestaurantsGrid onSelect={(r) => setSelectedRestaurant(r)} />
+          <RestaurantsGrid isDarkMode={isDarkMode} onSelect={(r) => setSelectedRestaurant(r)} />
         </div>
         <div className="right-pane">
           <MapView onMarkerClick={(r) => setSelectedRestaurant(r)} selectedRestaurant={selectedRestaurant} />
@@ -44,7 +49,7 @@ function App() {
       </div>
 
       {/* Drawer overlays the left column when a restaurant is selected */}
-      <RestaurantDrawer restaurant={selectedRestaurant} onClose={() => setSelectedRestaurant(null)} />
+      <RestaurantDrawer isDarkMode={isDarkMode} restaurant={selectedRestaurant} onClose={() => setSelectedRestaurant(null)} />
     </div>
   );
 }

@@ -2,7 +2,7 @@ import ReviewDisplay from '../ReviewDisplay';
 import { useEffect, useState, useRef } from 'react';
 import './RestaurantDrawer.css';
 
-function ReviewsCarousel({ restaurant }) {
+function ReviewsCarousel({ restaurant, isDarkMode = true }) {
   const [reviews, setReviews] = useState([]);
   const [index, setIndex] = useState(0);
   const trackRef = useRef(null);
@@ -60,11 +60,19 @@ function ReviewsCarousel({ restaurant }) {
   return (
     <div className="reviews-carousel">
       {reviews.length === 0 ? (
-        <div className="no-reviews">No reviews currently</div>
+        <div className="no-reviews" style={{ color: isDarkMode ? '#777' : '#999' }}>No reviews currently</div>
       ) : (
         <div className="carousel-track" ref={trackRef}>
           {reviews.map((r, idx) => (
-            <div className="carousel-slide" key={idx}>
+            <div 
+              className="carousel-slide" 
+              key={idx}
+              style={{
+                backgroundColor: isDarkMode ? '#2a2a2a' : '#f5f5f5',
+                color: isDarkMode ? 'white' : '#333',
+                boxShadow: isDarkMode ? '0 2px 8px rgba(0,0,0,0.3)' : '0 2px 8px rgba(0,0,0,0.1)'
+              }}
+            >
               <h4>{r.name}</h4>
               <div className="slide-rating">{r.rating}</div>
               <p>{r.comment}</p>
@@ -76,14 +84,24 @@ function ReviewsCarousel({ restaurant }) {
   );
 }
 
-export default function RestaurantDrawer({ restaurant, onClose }) {
+export default function RestaurantDrawer({ restaurant, onClose, isDarkMode = true }) {
   return (
-    <div className={`restaurant-drawer ${restaurant ? "open" : ""}`}>
+    <div 
+      className={`restaurant-drawer ${restaurant ? "open" : ""}`}
+      style={{
+        backgroundColor: isDarkMode ? '#212125' : '#ffffff',
+        color: isDarkMode ? '#fff' : '#333'
+      }}
+    >
       {restaurant && (
         <>
           {/* Banner stays fixed at the top */}
           <div className="close-btn-container" onClick={onClose}>
-            <button className="drawer-close" onClick={onClose}>✕</button>
+            <button 
+              className="drawer-close" 
+              onClick={onClose}
+              style={{ color: isDarkMode ? '#fff' : '#333' }}
+            >✕</button>
           </div>
           <div className="drawer-banner">
            <img src={restaurant.banner || '/placeholder.png'} alt={restaurant.name} onError={(e) => e.target.style.display='none'} />
@@ -97,13 +115,13 @@ export default function RestaurantDrawer({ restaurant, onClose }) {
           <div className="drawer-inner">
             {/* Recent reviews carousel */}
             <section className="drawer-section">
-              <h2 style={{ fontSize: "32px" }}>{restaurant.name}</h2>
-              <ReviewsCarousel restaurant={restaurant} />
+              <h2 style={{ fontSize: "32px", color: isDarkMode ? '#fff' : '#333' }}>{restaurant.name}</h2>
+              <ReviewsCarousel restaurant={restaurant} isDarkMode={isDarkMode} />
             </section>
 
             {/* Review form */}
             <section className="drawer-section">
-              <h3>Leave a Review</h3>
+              <h3 style={{ color: isDarkMode ? '#fff' : '#333' }}>Leave a Review</h3>
               <ReviewDisplay restaurant={restaurant} showHeader={false} />
             </section>
           </div>

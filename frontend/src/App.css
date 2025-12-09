@@ -145,3 +145,54 @@ body::-webkit-scrollbar {
   overflow-y: auto;
   width: 100%;
 }
+
+/* Theme Toggle Button */
+.theme-toggle {
+  position: fixed;
+  top: 20px;
+  left: 20px;
+  z-index: 2000;
+  background: #333;
+  border: 2px solid #555;
+  color: #fff;
+  font-size: 14px;
+  font-weight: 600;
+  padding: 10px 16px;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+}
+
+.theme-toggle:hover {
+  background: #444;
+  transform: scale(1.05);
+}
+
+/* Dark Mode Styles (default) */
+.app-container.dark-mode {
+  background: #121212;
+  color: #fff;
+}
+
+.app-container.dark-mode .theme-toggle {
+  background: #333;
+  border-color: #555;
+  color: #fff;
+}
+
+/* Light Mode Styles */
+.app-container.light-mode {
+  background: #f5f5f5;
+  color: #333;
+}
+
+.app-container.light-mode .theme-toggle {
+  background: #e0e0e0;
+  border-color: #999;
+  color: #333;
+}
+
+.app-container.light-mode .theme-toggle:hover {
+  background: #d0d0d0;
+}
