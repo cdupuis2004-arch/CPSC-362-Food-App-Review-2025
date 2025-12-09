@@ -163,16 +163,5 @@
     "avgRating": 4.1,
     "info": "Campus essentials & snacks",
     "location": "Near Humanities Building and University Hall"
-  },
-  {
-    "id": 16,
-    "name": "Captain Jack Sparrow",
-    "banner": "/banners/SparrowBanner.gif",
-    "icon": "/icons/Sparrow.png",
-    "size": [80, 80],
-    "position": [33.88315, -117.88533],
-    "avgRating": 4.1,
-    "info": "",
-    "location": ""
   }
 ]

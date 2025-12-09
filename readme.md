@@ -1,28 +1,25 @@
-# 🌐 Web App Project
+# 🌐 Tuffy's Belly
 
 ## ⚙️ Setup Backend
 
-1. 🐍 Ensure you have **Python 3.11** installed
-   ```bash
-   python --version
-
-2. 📦 Install project dependencies:
+1. 📦 Install project dependencies:
    ```bash
     pip install -r requirements.txt
 
-▶️ Run **python backend/main.py** with your interpreter
+2. Run main.py
+   ```bash
+   python backend/main.py
 
 ## ⚙️ Setup Frontend
 
-1. 🟩 Ensure you have **Node.js (v18 or newer)** installed
+1. 📦 Install node dependencies:
+   ```bash
+   cd frontend
+   npm install
 
-2. 📦 Install frontend dependencies
-   Navigate into the frontend folder:
-   `cd frontend`
-   Then run: `npm install`
-
-3. ▶️ Start the development server
-   Run: `npm run dev`
+2. Run React + Vite
+   ```bash
+   npm run dev
 
 4. 🌐 Open the app in your browser
    After running, you’ll see a line like:
