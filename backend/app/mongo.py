@@ -78,6 +78,25 @@ def delete_review(_id):
     res = reviews_collection.delete_one({'_id': obj_id})
     return res.deleted_count > 0
 
+def get_store_ratings():
+    """Returns a dictionary mapping store names to their average rating."""
+    pipeline = [
+        {
+            "$group": {
+                "_id": "$store",
+                "average": {"$avg": "$rating"}
+            }
+        }
+    ]
+    results = reviews_collection.aggregate(pipeline)
+    
+    ratings_map = {}
+    for doc in results:
+        if doc["_id"]:
+            ratings_map[doc["_id"]] = doc["average"]
+            
+    return ratings_map
+
 # ---------- User Functions ----------
 def get_user_by_username(username: str):
     """Return user document or None. Note: password stored hashed in 'password_hash'."""

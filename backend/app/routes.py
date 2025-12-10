@@ -59,6 +59,13 @@ def signup():
     session.permanent = True
     return jsonify({"username": username, "email": email}), 201
 
+# ---------- Ratings Endpoint----------
+@bp.route('/ratings', methods=['GET'])
+def get_ratings():
+    """Return average ratings for all stores."""
+    ratings = mongo.get_store_ratings()
+    return jsonify(ratings), 200
+
 # ---------- Reviews Endpoints ----------
 @bp.route('/reviews', methods=['GET'])
 def get_reviews():
