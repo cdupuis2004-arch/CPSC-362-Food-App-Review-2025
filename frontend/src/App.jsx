@@ -62,7 +62,7 @@ function App() {
       {/* Drawer overlays the left column when a restaurant is selected */}
       <RestaurantDrawer isDarkMode={isDarkMode} restaurant={selectedRestaurant} onClose={() => setSelectedRestaurant(null)} />
       {/* Login drawer */}
-      <LoginDrawer open={loginOpen} onClose={() => setLoginOpen(false)} />
+      <LoginDrawer isDarkMode={isDarkMode} open={loginOpen} onClose={() => setLoginOpen(false)} />
     </div>
   );
 }

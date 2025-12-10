@@ -1,7 +1,7 @@
 import { useState } from 'react';
 
 
-export default function LoginDrawer({ open, onClose }) {
+export default function LoginDrawer({ open, onClose, isDarkMode = true }) {
   const [isSignup, setIsSignup] = useState(false); // toggle between login and signup
   const [email, setEmail] = useState(''); // email state
   const [password, setPassword] = useState(''); // password state
@@ -35,23 +35,42 @@ export default function LoginDrawer({ open, onClose }) {
 
   return (
     <div className="login-drawer-overlay" onClick={onClose}>
-      <div className="login-drawer" onClick={(e) => e.stopPropagation()}>
+      <div 
+        className="login-drawer" 
+        onClick={(e) => e.stopPropagation()}
+        style={{
+          backgroundColor: isDarkMode ? '#212125' : '#fff',
+          color: isDarkMode ? '#fff' : '#333'
+        }}
+      >
         {!isSignup ? (
           // This is the updated login form 
           <>
             <h2>Login</h2>
             <form onSubmit={handleLogin}>
               <input 
-                type="email" placeholder="Email" 
+                type="email" 
+                placeholder="Email" 
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 required
+                style={{
+                  backgroundColor: isDarkMode ? '#2a2a2a' : '#fff',
+                  color: isDarkMode ? '#fff' : '#000',
+                  borderColor: isDarkMode ? '#444' : '#ccc'
+                }}
               />
               <input 
-                type="password" placeholder="Password" 
+                type="password" 
+                placeholder="Password" 
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
                 required
+                style={{
+                  backgroundColor: isDarkMode ? '#2a2a2a' : '#fff',
+                  color: isDarkMode ? '#fff' : '#000',
+                  borderColor: isDarkMode ? '#444' : '#ccc'
+                }}
               />
               <button type="submit">Sign In</button>
             </form>
@@ -73,6 +92,11 @@ export default function LoginDrawer({ open, onClose }) {
                 value={name}
                 onChange={(e) => setName(e.target.value)}
                 required
+                style={{
+                  backgroundColor: isDarkMode ? '#2a2a2a' : '#fff',
+                  color: isDarkMode ? '#fff' : '#000',
+                  borderColor: isDarkMode ? '#444' : '#ccc'
+                }}
               />
               <input 
                 type="email" 
@@ -80,6 +104,11 @@ export default function LoginDrawer({ open, onClose }) {
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 required
+                style={{
+                  backgroundColor: isDarkMode ? '#2a2a2a' : '#fff',
+                  color: isDarkMode ? '#fff' : '#000',
+                  borderColor: isDarkMode ? '#444' : '#ccc'
+                }}
               />
               <input 
                 type="password" 
@@ -87,6 +116,11 @@ export default function LoginDrawer({ open, onClose }) {
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
                 required
+                style={{
+                  backgroundColor: isDarkMode ? '#2a2a2a' : '#fff',
+                  color: isDarkMode ? '#fff' : '#000',
+                  borderColor: isDarkMode ? '#444' : '#ccc'
+                }}
               />
               <button type="submit">Create Account</button>
             </form>
