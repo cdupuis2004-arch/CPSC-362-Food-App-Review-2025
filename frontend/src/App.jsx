@@ -3,11 +3,13 @@ import RestaurantsGrid from "./components/RestaurantsGrid";
 import SearchBar from "./components/SearchBar";
 import MapView from "./components/MapView";
 import RestaurantDrawer from "./components/RestaurantDrawer";
+import LoginDrawer from "./components/LoginDrawer";
 import "./App.css";
 
 function App() {
   const [selectedRestaurant, setSelectedRestaurant] = useState(null);
   const [isDarkMode, setIsDarkMode] = useState(true);
+  const [loginOpen, setLoginOpen] = useState(false);
 
   useEffect(() => {
     document.body.style.backgroundColor = isDarkMode ? '#121212' : '#f5f5f5';
@@ -19,7 +21,7 @@ function App() {
   };
 
   
-  
+  // What is this code for?
   /*
   const writeReview = (restaurant, text) => {
     if (!text || !text.trim()) {
@@ -42,7 +44,7 @@ function App() {
       </button>
 
       {/* Login Button */}
-      <button className="login-button">Login</button>
+      <button className="login-button" onClick={() => setLoginOpen(true)}>Login</button>
 
       {/* Floating search bar */}
       <SearchBar onQueryClick={setSelectedRestaurant}/>
@@ -59,6 +61,8 @@ function App() {
 
       {/* Drawer overlays the left column when a restaurant is selected */}
       <RestaurantDrawer isDarkMode={isDarkMode} restaurant={selectedRestaurant} onClose={() => setSelectedRestaurant(null)} />
+      {/* Login drawer */}
+      <LoginDrawer open={loginOpen} onClose={() => setLoginOpen(false)} />
     </div>
   );
 }

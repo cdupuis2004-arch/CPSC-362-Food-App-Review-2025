@@ -219,3 +219,89 @@ body::-webkit-scrollbar {
   background: #444;
   transform: scale(1.05);
 }
+
+/* Login Drawer Panel */
+.login-drawer-overlay {
+position: fixed;
+top: 0;
+left: 0;
+width: 100vw;
+height: 100vh;
+background: rgba(0,0,0,0.45);
+display: flex;
+justify-content: center;
+align-items: center;
+z-index: 3000;
+opacity: 0;
+animation: fadeIn 0.25s ease forwards;
+}
+
+
+.login-drawer {
+background: #fff;
+width: 380px;
+max-width: 90%;
+padding: 28px;
+border-radius: 16px;
+box-shadow: 0 8px 26px rgba(0,0,0,0.25);
+animation: popIn 0.25s ease forwards;
+}
+
+
+@keyframes fadeIn {
+from { opacity: 0; }
+to { opacity: 1; }
+}
+
+
+@keyframes popIn {
+from {
+transform: scale(0.85);
+opacity: 0;
+}
+to {
+transform: scale(1);
+opacity: 1;
+}
+}
+
+
+.login-drawer h2 {
+margin-top: 0;
+font-size: 22px;
+font-weight: 600;
+text-align: center;
+}
+
+
+.login-drawer input {
+width: 100%;
+padding: 12px;
+margin: 10px 0;
+border-radius: 8px;
+border: 1px solid #ccc;
+font-size: 14px;
+box-sizing: border-box;
+}
+
+
+.login-drawer button {
+width: 100%;
+padding: 12px;
+margin-top: 10px;
+background: #333;
+color: white;
+border: none;
+border-radius: 8px;
+cursor: pointer;
+font-size: 15px;
+font-weight: 600;
+transition: 0.25s ease;
+}
+
+
+.login-drawer button:hover {
+background: #444;
+transform: scale(1.03);
+}
+
