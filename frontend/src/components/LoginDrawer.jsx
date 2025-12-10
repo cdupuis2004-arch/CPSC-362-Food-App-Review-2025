@@ -8,6 +8,7 @@ export default function LoginDrawer({ open, onClose }) {
         <input type="email" placeholder="Email" />
         <input type="password" placeholder="Password" />
         <button>Sign In</button>
+        <button>Create an Account</button>
         <button onClick={onClose} style={{ marginTop: "15px", background: "#bbb", color: "#222" }}>Cancel</button>
       </div>
     </div>
