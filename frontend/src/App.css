@@ -47,7 +47,7 @@ body::-webkit-scrollbar {
 
 .right-pane {
   right: 40px;                 /* aligns with your app-container padding */
-  margin: 10px;              /* 20px breathing room left/right */
+  margin: 15px;              /* 20px breathing room left/right */
 
   width: 110%;
 
@@ -79,7 +79,7 @@ body::-webkit-scrollbar {
 .content-split {
   display: grid;
   grid-template-columns: 0.35fr 0.9fr;
-  gap: 20px;
+  gap: 0px;
   padding: 20px;
   box-sizing: border-box;
 }
@@ -195,4 +195,27 @@ body::-webkit-scrollbar {
 
 .app-container.light-mode .theme-toggle:hover {
   background: #d0d0d0;
+}
+
+/* Login Button */
+.login-button {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  z-index: 3000;
+  background: #333;
+  border: 2px solid #555;
+  color: #fff;
+  font-size: 14px;
+  font-weight: 600;
+  padding: 10px 16px;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+}
+
+.login-button:hover {
+  background: #444;
+  transform: scale(1.05);
 }

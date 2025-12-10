@@ -18,22 +18,31 @@ function App() {
     setIsDarkMode(!isDarkMode);
   };
 
+  
+  
+  /*
   const writeReview = (restaurant, text) => {
     if (!text || !text.trim()) {
       alert("Please enter a review.");
-      return;
+      return;<q></q>
     }
+      
     // TODO: replace with API call to persist the review
     console.log("Submitting review for", restaurant, text);
     // optionally clear selection
     setSelectedRestaurant(null);
   };
+
+  */
   return (
     <div className={`app-container ${isDarkMode ? 'dark-mode' : 'light-mode'}`}>
       {/* Theme toggle button */}
       <button className="theme-toggle" onClick={toggleTheme} title={isDarkMode ? 'Switch to Light Mode' : 'Switch to Dark Mode'}>
         {isDarkMode ? 'Light Mode' : 'Dark Mode'}
       </button>
+
+      {/* Login Button */}
+      <button className="login-button">Login</button>
 
       {/* Floating search bar */}
       <SearchBar onQueryClick={setSelectedRestaurant}/>
