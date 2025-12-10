@@ -10,6 +10,7 @@ export default function LoginDrawer({ open, onClose }) {
         <button>Sign In</button>
         <button>Create an Account</button>
         <button onClick={onClose} style={{ marginTop: "15px", background: "#bbb", color: "#222" }}>Cancel</button>
+        <image src="TuffyLogo.png" alt="Tuffy Logo" />
       </div>
     </div>
   );
