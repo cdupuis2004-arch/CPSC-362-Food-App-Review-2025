@@ -2,40 +2,54 @@ import ReviewDisplay from '../ReviewDisplay';
 import { useEffect, useState, useRef } from 'react';
 import './RestaurantDrawer.css';
 
-function ReviewsCarousel({ restaurant, isDarkMode = true }) {
-  const [reviews, setReviews] = useState([]);
-  const [index, setIndex] = useState(0);
+export default function RestaurantDrawer({ restaurant, onClose, isDarkMode = true, user = null }) {
+  const [allReviews, setAllReviews] = useState([]);
   const trackRef = useRef(null);
+  const [index, setIndex] = useState(0);
+
+  async function loadReviews() {
+    try {
+      const url = '/api/reviews' + (restaurant ? `?store=${encodeURIComponent(restaurant.name)}` : '');
+      const res = await fetch(url, { credentials: 'include' });
+      const data = await res.json();
+      // map to display fields: display_name (public), rating stars
+      const parsed = data.map(r => ({
+        _id: r._id,
+        username: r.username,
+        display_name: r.display_name || r.name || r.username,
+        comment: r.comment,
+        ratingNumber: r.rating,
+        rating: '★'.repeat(r.rating) + '☆'.repeat(5 - r.rating)
+      }));
+      // newest first
+      setAllReviews(parsed);
+    } catch (err) {
+      console.error('Failed to load reviews for drawer', err);
+      setAllReviews([]);
+    }
+  }
 
   useEffect(() => {
-    let mounted = true;
-    async function load() {
-      try {
-        const res = await fetch('http://localhost:5000/api/reviews');
-        const data = await res.json();
-        const parsed = data
-          .filter(r => r.store === (restaurant?.name || ''))
-          .map(r => ({ name: r.name, comment: r.comment, rating: '★'.repeat(r.rating) + '☆'.repeat(5 - r.rating) }));
-        if (mounted) setReviews(parsed.reverse()); // keep all reviews for full list
-      } catch (e) {
-        console.error('Failed to load reviews for carousel', e);
-      }
-    }
-    if (restaurant) load();
-    return () => { mounted = false; };
+    if (restaurant) loadReviews();
+    else setAllReviews([]);
   }, [restaurant]);
 
+  // carousel logic: auto-advance index across up to 5 most recent reviews
   useEffect(() => {
-    if (!reviews || reviews.length === 0) return;
+    if (!allReviews || allReviews.length === 0) {
+      setIndex(0);
+      return;
+    }
     setIndex(0);
     const id = setInterval(() => {
-      setIndex(i => (i + 1) % Math.min(5, reviews.length)); // carousel shows last 5
+      setIndex(i => (i + 1) % Math.min(5, allReviews.length));
     }, 4000);
     return () => clearInterval(id);
-  }, [reviews]);
+  }, [allReviews]);
 
+  // scroll track to active slide (center)
   useEffect(() => {
-    if (!trackRef.current || reviews.length === 0) return;
+    if (!trackRef.current || allReviews.length === 0) return;
     const track = trackRef.current;
     const slides = Array.from(track.children || []);
     const active = slides[index];
@@ -47,36 +61,15 @@ function ReviewsCarousel({ restaurant, isDarkMode = true }) {
         track.scrollLeft = left;
       }
     }
-  }, [index, reviews]);
-
-  return reviews.slice(-5); // return last 5 for carousel display only
-}
-
-export default function RestaurantDrawer({ restaurant, onClose, isDarkMode = true, user = null }) {
-  const [allReviews, setAllReviews] = useState([]);
-
-  useEffect(() => {
-    let mounted = true;
-    async function load() {
-      try {
-        const res = await fetch('http://localhost:5000/api/reviews');
-        const data = await res.json();
-        const parsed = data
-          .filter(r => r.store === (restaurant?.name || ''))
-          .map(r => ({ name: r.name, comment: r.comment, rating: '★'.repeat(r.rating) + '☆'.repeat(5 - r.rating) }));
-        if (mounted) setAllReviews(parsed.reverse()); // most recent first
-      } catch (e) {
-        console.error('Failed to load all reviews', e);
-      }
-    }
-    if (restaurant) load();
-    return () => { mounted = false; };
-  }, [restaurant]);
+  }, [index, allReviews]);
 
   if (!restaurant) return null;
 
+  // last 5 reviews for carousel: most recent first (allReviews is newest-first)
+  const carouselItems = allReviews.slice(0, 5);
+
   return (
-    <div 
+    <div
       className={`restaurant-drawer ${restaurant ? "open" : ""}`}
       style={{
         backgroundColor: isDarkMode ? '#212125' : '#ffffff',
@@ -84,8 +77,8 @@ export default function RestaurantDrawer({ restaurant, onClose, isDarkMode = tru
       }}
     >
       <div className="close-btn-container" onClick={onClose}>
-        <button 
-          className="drawer-close" 
+        <button
+          className="drawer-close"
           onClick={onClose}
           style={{ color: isDarkMode ? '#fff' : '#333' }}
         >✕</button>
@@ -96,27 +89,31 @@ export default function RestaurantDrawer({ restaurant, onClose, isDarkMode = tru
       </div>
 
       <div className="restaurant-icon">
-        <img alt={restaurant.name + " logo"} src={restaurant.icon} />
+        <img alt={restaurant.name + " logo"} src={restaurant.icon} onError={(e) => e.target.style.display='none'} />
       </div>
 
       <div className="drawer-inner">
         <section className="drawer-section">
           <h2 style={{ fontSize: "32px", color: isDarkMode ? '#fff' : '#333' }}>{restaurant.name}</h2>
-          {/* Carousel shows only last 5 reviews */}
-          <div className="reviews-carousel">
-            {allReviews.slice(0,5).length === 0 ? (
+
+          <div className="reviews-carousel" style={{ marginBottom: 12 }}>
+            {carouselItems.length === 0 ? (
               <div className="no-reviews" style={{ color: isDarkMode ? '#777' : '#999' }}>No reviews currently</div>
             ) : (
-              <div className="carousel-track">
-                {allReviews.slice(0,5).map((r, idx) => (
-                  <div key={idx} className="carousel-slide" style={{
+              <div className="carousel-track" ref={trackRef} style={{ display: 'flex', gap: 12, overflowX: 'auto', padding: '8px 4px' }}>
+                {carouselItems.map((r, idx) => (
+                  <div key={r._id} className="carousel-slide" style={{
+                    minWidth: 400,
+                    maxWidth: 400,
+                    padding: 12,
+                    borderRadius: 8,
                     backgroundColor: isDarkMode ? '#2a2a2a' : '#f5f5f5',
                     color: isDarkMode ? 'white' : '#333',
                     boxShadow: isDarkMode ? '0 2px 8px rgba(0,0,0,0.3)' : '0 2px 8px rgba(0,0,0,0.1)'
                   }}>
-                    <h4>{r.name}</h4>
-                    <div>{r.rating}</div>
-                    <p>{r.comment}</p>
+                    <h4 style={{ margin: '0 0 6px 0' }}>{r.display_name}</h4>
+                    <div style={{ marginBottom: 8 }}>{r.rating}</div>
+                    <p style={{ margin: 0 }}>{r.comment}</p>
                   </div>
                 ))}
               </div>
@@ -124,7 +121,7 @@ export default function RestaurantDrawer({ restaurant, onClose, isDarkMode = tru
           </div>
         </section>
 
-        {/* Conditional leave-review section (only for logged-in users) */}
+        {/* Leave-review -- visible to logged-in users only */}
         {user ? (
           <section className="drawer-section">
             <h3 style={{ color: isDarkMode ? '#fff' : '#333' }}>Leave a Review</h3>
@@ -137,26 +134,28 @@ export default function RestaurantDrawer({ restaurant, onClose, isDarkMode = tru
         )}
 
         {/* Full list of all reviews */}
+        {/*
         <section className="drawer-section">
           <h3 style={{ color: isDarkMode ? '#fff' : '#333' }}>All Reviews</h3>
           {allReviews.length === 0 ? (
             <p style={{ color: isDarkMode ? '#aaa' : '#555' }}>No reviews yet.</p>
           ) : (
-            allReviews.map((r, idx) => (
-              <div key={idx} style={{
+            allReviews.map((r) => (
+              <div key={r._id} style={{
                 backgroundColor: isDarkMode ? '#2a2a2a' : '#f5f5f5',
                 color: isDarkMode ? 'white' : '#333',
                 padding: '12px',
                 borderRadius: '8px',
                 marginBottom: '8px',
               }}>
-                <h4>{r.name}</h4>
-                <div>{r.rating}</div>
-                <p>{r.comment}</p>
+                <h4 style={{ margin: 0 }}>{r.display_name}</h4>
+                <div style={{ marginBottom: 6 }}>{r.rating}</div>
+                <p style={{ margin: 0 }}>{r.comment}</p>
               </div>
             ))
           )}
         </section>
+        */}
       </div>
     </div>
   );

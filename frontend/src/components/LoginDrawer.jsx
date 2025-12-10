@@ -2,33 +2,31 @@ import { useState } from 'react';
 
 export default function LoginDrawer({ open, onClose, setUser, isDarkMode = true }) {
   const [isSignup, setIsSignup] = useState(false);
-
-  // username is required by backend (not "name")
   const [username, setUsername] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
   if (!open) return null;
 
-  // ---------- handle signup ----------
   const handleSignup = async (e) => {
     e.preventDefault();
     try {
       const res = await fetch('/api/signup', {
         method: 'POST',
-        credentials: 'include', // ensure cookies are set (when using proxy)
+        credentials: 'include',
         headers: { 'Content-Type': 'application/json' },
-        // backend requires username, email, password
         body: JSON.stringify({ username, email, password })
       });
-
       const data = await res.json();
       if (res.ok) {
-        alert('Account created successfully!');
-        setUser({ username: data.username, email: data.email }); // set logged-in user
+        setUser({ username: data.username, email: data.email });
+        alert('Account created and logged in!');
+        setUsername('');
+        setEmail('');
+        setPassword('');
         onClose();
       } else {
-        alert(`Signup failed: ${data.message}`);
+        alert('Signup failed: ' + (data.message || 'Unknown error'));
       }
     } catch (err) {
       console.error(err);
@@ -36,25 +34,24 @@ export default function LoginDrawer({ open, onClose, setUser, isDarkMode = true 
     }
   };
 
-  // ---------- handle login ----------
   const handleLogin = async (e) => {
     e.preventDefault();
     try {
       const res = await fetch('/api/login', {
         method: 'POST',
-        credentials: 'include', // include cookies for session auth
+        credentials: 'include',
         headers: { 'Content-Type': 'application/json' },
-        // backend requires username + password (NOT email)
         body: JSON.stringify({ username, password })
       });
-
       const data = await res.json();
       if (res.ok) {
-        setUser({ username: data.username, email: data.email }); // set logged-in user
+        setUser({ username: data.username, email: data.email });
         alert('Logged in successfully!');
+        setUsername('');
+        setPassword('');
         onClose();
       } else {
-        alert(`Login failed: ${data.message}`);
+        alert('Login failed: ' + (data.message || 'Unknown error'));
       }
     } catch (err) {
       console.error(err);
@@ -64,8 +61,8 @@ export default function LoginDrawer({ open, onClose, setUser, isDarkMode = true 
 
   return (
     <div className="login-drawer-overlay" onClick={onClose}>
-      <div 
-        className="login-drawer" 
+      <div
+        className="login-drawer"
         onClick={(e) => e.stopPropagation()}
         style={{
           backgroundColor: isDarkMode ? '#212125' : '#fff',
@@ -76,9 +73,9 @@ export default function LoginDrawer({ open, onClose, setUser, isDarkMode = true 
           <>
             <h2>Login</h2>
             <form onSubmit={handleLogin}>
-              <input 
-                type="text" 
-                placeholder="Username" 
+              <input
+                type="text"
+                placeholder="Username"
                 value={username}
                 onChange={(e) => setUsername(e.target.value)}
                 required
@@ -88,9 +85,9 @@ export default function LoginDrawer({ open, onClose, setUser, isDarkMode = true 
                   borderColor: isDarkMode ? '#444' : '#ccc'
                 }}
               />
-              <input 
-                type="password" 
-                placeholder="Password" 
+              <input
+                type="password"
+                placeholder="Password"
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
                 required
@@ -102,7 +99,8 @@ export default function LoginDrawer({ open, onClose, setUser, isDarkMode = true 
               />
               <button type="submit">Sign In</button>
             </form>
-            <button onClick={() => setIsSignup(true)} style={{ marginTop: "10px", background: "#4CAF50", color: "#fff" }}>
+
+            <button onClick={() => { setIsSignup(true); setPassword(''); }} style={{ marginTop: "10px", background: "#4CAF50", color: "#fff" }}>
               Create an Account
             </button>
             <button onClick={onClose} style={{ marginTop: "10px", background: "#bbb", color: "#222" }}>
@@ -113,9 +111,9 @@ export default function LoginDrawer({ open, onClose, setUser, isDarkMode = true 
           <>
             <h2>Create an Account</h2>
             <form onSubmit={handleSignup}>
-              <input 
-                type="text" 
-                placeholder="Username" 
+              <input
+                type="text"
+                placeholder="Username"
                 value={username}
                 onChange={(e) => setUsername(e.target.value)}
                 required
@@ -125,9 +123,9 @@ export default function LoginDrawer({ open, onClose, setUser, isDarkMode = true 
                   borderColor: isDarkMode ? '#444' : '#ccc'
                 }}
               />
-              <input 
-                type="email" 
-                placeholder="Email" 
+              <input
+                type="email"
+                placeholder="Email"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 required
@@ -137,9 +135,9 @@ export default function LoginDrawer({ open, onClose, setUser, isDarkMode = true 
                   borderColor: isDarkMode ? '#444' : '#ccc'
                 }}
               />
-              <input 
-                type="password" 
-                placeholder="Password" 
+              <input
+                type="password"
+                placeholder="Password"
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
                 required

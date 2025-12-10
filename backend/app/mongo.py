@@ -1,10 +1,10 @@
 from pymongo import MongoClient
 from bson.objectid import ObjectId
 from werkzeug.security import generate_password_hash, check_password_hash
+import os
 
-# MongoDB connection
-# IMPORTANT: Move this URI into env var for production.
-uri = "mongodb+srv://CasualCaleb:GDD8tvad5u95UvDD@cluster0.sifoxlk.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0"
+# MongoDB connection - move URI to env var for production
+uri = os.environ.get("MONGO_URI", "mongodb+srv://CasualCaleb:GDD8tvad5u95UvDD@cluster0.sifoxlk.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0")
 client = MongoClient(uri)
 
 # Default database and collections
@@ -15,29 +15,31 @@ users_collection = db['users']
 # ---------- Review Functions ----------
 def get_reviews(filters=None):
     """Return list of reviews. Convert ObjectId to str for JSON transport."""
-    query = filters or {}
-    # If _id passed in filters as string, convert to ObjectId
+    query = filters.copy() if filters else {}
+
+    # If asking by _id string, convert to ObjectId
     if query.get('_id') and isinstance(query['_id'], str):
         try:
             query['_id'] = ObjectId(query['_id'])
         except Exception:
-            # invalid id format -> no results
+            # invalid id => no results
             return []
 
-    data = reviews_collection.find(query)
+    cursor = reviews_collection.find(query).sort([('_id', -1)])  # newest first
     reviews = []
-    for review in data:
-        review['_id'] = str(review['_id'])
-        reviews.append(review)
+    for r in cursor:
+        r['_id'] = str(r['_id'])
+        reviews.append(r)
     return reviews
 
-def add_review(store, username, comment, rating):
-    """Add a review. rating must be 1..5. Stores 'username' as author."""
-    if rating < 1 or rating > 5:
+def add_review(store, username, display_name, comment, rating):
+    """Add a review. Stores 'username' as author and 'display_name' as public name."""
+    if rating is None or rating < 1 or rating > 5:
         return {'status': 'mongo.py rating error'}
     data = {
         'store': store,
-        'username': username,   # author of review (consistent with session)
+        'username': username,        # owner (for permission checks)
+        'display_name': display_name, # public display name (editable per-review)
         'comment': comment,
         'rating': rating,
     }
@@ -46,10 +48,9 @@ def add_review(store, username, comment, rating):
         return {'status': 'success', '_id': str(result.inserted_id)}
     return {'status': 'MongoDB internal error'}
 
-def update_review(_id, store, username, comment, rating):
+def update_review(_id, store, username, display_name, comment, rating):
     """
-    Update a review. _id may be string. This function does NOT check ownership;
-    the route should verify session username matches review['username'] before calling.
+    Update a review. Expects _id (string). Ownership checks should be done in route.
     """
     try:
         obj_id = ObjectId(_id)
@@ -59,7 +60,8 @@ def update_review(_id, store, username, comment, rating):
     update = {
         '$set': {
             'store': store,
-            'username': username,
+            'username': username,  # keep owner username (shouldn't change)
+            'display_name': display_name,
             'comment': comment,
             'rating': rating,
         }

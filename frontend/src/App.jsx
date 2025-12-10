@@ -12,20 +12,14 @@ function App() {
   const [loginOpen, setLoginOpen] = useState(false);
   const [user, setUser] = useState(null); // Tracks logged-in user
 
-  // on mount, check /api/me to restore session (if any)
+  // restore session on mount
   useEffect(() => {
-    fetch('/api/me', {
-      credentials: 'include'
-    })
+    fetch('/api/me', { credentials: 'include' })
       .then(res => res.json())
       .then(data => {
-        if (data && data.username) {
-          setUser({ username: data.username, email: data.email });
-        }
+        if (data && data.username) setUser({ username: data.username, email: data.email });
       })
-      .catch(err => {
-        console.error('Error fetching current user:', err);
-      });
+      .catch(err => console.error('Error fetching /api/me:', err));
   }, []);
 
   useEffect(() => {
@@ -33,16 +27,11 @@ function App() {
     document.body.style.color = isDarkMode ? '#fff' : '#333';
   }, [isDarkMode]);
 
-  const toggleTheme = () => {
-    setIsDarkMode(!isDarkMode);
-  };
+  const toggleTheme = () => setIsDarkMode(!isDarkMode);
 
   const handleLogout = async () => {
     try {
-      const res = await fetch('/api/logout', {
-        method: 'POST',
-        credentials: 'include'
-      });
+      const res = await fetch('/api/logout', { method: 'POST', credentials: 'include' });
       if (res.ok) {
         setUser(null);
         alert('Logged out');
@@ -57,25 +46,22 @@ function App() {
 
   return (
     <div className={`app-container ${isDarkMode ? 'dark-mode' : 'light-mode'}`}>
-      {/* Theme toggle button */}
       <button className="theme-toggle" onClick={toggleTheme} title={isDarkMode ? 'Switch to Light Mode' : 'Switch to Dark Mode'}>
         {isDarkMode ? 'Light Mode' : 'Dark Mode'}
       </button>
 
-      {/* Login / Logout button */}
+      {/* Auth controls */}
       {!user ? (
         <button className="login-button" onClick={() => setLoginOpen(true)}>Login</button>
       ) : (
         <div style={{ display: 'inline-block', marginLeft: 10 }}>
-          <span style={{ marginRight: 8 }}>Hi, {user.username}</span>
-          <button onClick={handleLogout}>Logout</button>
+          <span className="user-display" style={{ marginRight: 8 }}>Hi, {user.username}</span>
+          <button className="logout-button" onClick={handleLogout}>Logout</button>
         </div>
       )}
 
-      {/* Floating search bar */}
-      <SearchBar onQueryClick={setSelectedRestaurant}/>
+      <SearchBar onQueryClick={setSelectedRestaurant} />
 
-      {/* Two-column layout: cards left, interactive map right */}
       <div className="content-split">
         <div className="left-pane">
           <RestaurantsGrid isDarkMode={isDarkMode} onSelect={setSelectedRestaurant} />
@@ -85,20 +71,18 @@ function App() {
         </div>
       </div>
 
-      {/* Restaurant drawer */}
       <RestaurantDrawer
         isDarkMode={isDarkMode}
         restaurant={selectedRestaurant}
         onClose={() => setSelectedRestaurant(null)}
-        user={user} // Pass logged-in user to control leave-review section
+        user={user}
       />
 
-      {/* Login drawer */}
       <LoginDrawer
         isDarkMode={isDarkMode}
         open={loginOpen}
         onClose={() => setLoginOpen(false)}
-        setUser={setUser} // Set logged-in user after successful login
+        setUser={setUser}
       />
     </div>
   );

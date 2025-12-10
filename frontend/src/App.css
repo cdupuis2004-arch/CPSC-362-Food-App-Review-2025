@@ -151,7 +151,7 @@ body::-webkit-scrollbar {
   position: fixed;
   top: 20px;
   left: 20px;
-  z-index: 2000;
+  z-index: 20;
   background: #333;
   border: 2px solid #555;
   color: #fff;
@@ -305,3 +305,34 @@ background: #444;
 transform: scale(1.03);
 }
 
+
+.logout-button {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  z-index: 3000;
+  background: #333;
+  border: 2px solid #555;
+  color: #fff;
+  font-size: 14px;
+  font-weight: 600;
+  padding: 10px 16px;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+}
+.logout-button:hover {
+  background: #444;
+  transform: scale(1.05);
+}
+
+.user-display {
+  position: fixed;
+  top: 20px;
+  right: 100px;
+  z-index: 3000;
+  font-size: 14px;
+  font-weight: 600;
+  padding: 10px 16px;
+}
