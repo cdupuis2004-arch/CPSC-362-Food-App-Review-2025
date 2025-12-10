@@ -1,37 +1,66 @@
 import { useState } from 'react';
 
+export default function LoginDrawer({ open, onClose, setUser, isDarkMode = true }) {
+  const [isSignup, setIsSignup] = useState(false);
 
-export default function LoginDrawer({ open, onClose, isDarkMode = true }) {
-  const [isSignup, setIsSignup] = useState(false); // toggle between login and signup
-  const [email, setEmail] = useState(''); // email state
-  const [password, setPassword] = useState(''); // password state
-  const [name, setName] = useState(''); // name state for signup
+  // username is required by backend (not "name")
+  const [username, setUsername] = useState('');
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
 
   if (!open) return null;
 
-// handle signup form submission
-  const handleSignup = (e) => {
+  // ---------- handle signup ----------
+  const handleSignup = async (e) => {
     e.preventDefault();
-    // To do - still needs to add backend API call for account creation
-    console.log('Creating account:', { name, email, password });
-    alert('Account created successfully!');
-    setName('');
-    setEmail('');
-    setPassword('');
-    setIsSignup(false);
+    try {
+      const res = await fetch('/api/signup', {
+        method: 'POST',
+        credentials: 'include', // ensure cookies are set (when using proxy)
+        headers: { 'Content-Type': 'application/json' },
+        // backend requires username, email, password
+        body: JSON.stringify({ username, email, password })
+      });
+
+      const data = await res.json();
+      if (res.ok) {
+        alert('Account created successfully!');
+        setUser({ username: data.username, email: data.email }); // set logged-in user
+        onClose();
+      } else {
+        alert(`Signup failed: ${data.message}`);
+      }
+    } catch (err) {
+      console.error(err);
+      alert('Error creating account.');
+    }
   };
 
-// handle login form submission
-  const handleLogin = (e) => {
+  // ---------- handle login ----------
+  const handleLogin = async (e) => {
     e.preventDefault();
-    // To Do - still needs to add backend API call for login
-    console.log('Logging in:', { email, password });
-    alert('Logged in successfully!');
-    setEmail('');
-    setPassword('');
-    onClose();
-  };
+    try {
+      const res = await fetch('/api/login', {
+        method: 'POST',
+        credentials: 'include', // include cookies for session auth
+        headers: { 'Content-Type': 'application/json' },
+        // backend requires username + password (NOT email)
+        body: JSON.stringify({ username, password })
+      });
 
+      const data = await res.json();
+      if (res.ok) {
+        setUser({ username: data.username, email: data.email }); // set logged-in user
+        alert('Logged in successfully!');
+        onClose();
+      } else {
+        alert(`Login failed: ${data.message}`);
+      }
+    } catch (err) {
+      console.error(err);
+      alert('Error logging in.');
+    }
+  };
 
   return (
     <div className="login-drawer-overlay" onClick={onClose}>
@@ -44,15 +73,14 @@ export default function LoginDrawer({ open, onClose, isDarkMode = true }) {
         }}
       >
         {!isSignup ? (
-          // This is the updated login form 
           <>
             <h2>Login</h2>
             <form onSubmit={handleLogin}>
               <input 
-                type="email" 
-                placeholder="Email" 
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
+                type="text" 
+                placeholder="Username" 
+                value={username}
+                onChange={(e) => setUsername(e.target.value)}
                 required
                 style={{
                   backgroundColor: isDarkMode ? '#2a2a2a' : '#fff',
@@ -82,15 +110,14 @@ export default function LoginDrawer({ open, onClose, isDarkMode = true }) {
             </button>
           </>
         ) : (
-          // Updated signup form to include full name, email, and password.
           <>
             <h2>Create an Account</h2>
             <form onSubmit={handleSignup}>
               <input 
                 type="text" 
-                placeholder="Full Name" 
-                value={name}
-                onChange={(e) => setName(e.target.value)}
+                placeholder="Username" 
+                value={username}
+                onChange={(e) => setUsername(e.target.value)}
                 required
                 style={{
                   backgroundColor: isDarkMode ? '#2a2a2a' : '#fff',
@@ -132,7 +159,6 @@ export default function LoginDrawer({ open, onClose, isDarkMode = true }) {
             </button>
           </>
         )}
-        <image src="TuffyLogo.png" alt="Tuffy Logo" />
       </div>
     </div>
   );

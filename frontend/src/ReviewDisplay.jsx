@@ -4,36 +4,50 @@ import './ReviewDisplay.css'
 function ReviewDisplay({ restaurant, showHeader = true }) {
 
     const [reviews, setReviews] = useState([]);
-    const [name, setName] = useState('');
+    // removed name input - author comes from session/user
     const [comment, setComment] = useState('');
     const [rating, setRating] = useState(5);
     const [editingId, setEditingId] = useState(null);
+
+    // store the currently-logged-in username to auto-fill/identify ownership for edit buttons
+    const [currentUsername, setCurrentUsername] = useState(null);
 
     function toStars(num) {
         return "★".repeat(num) + "☆".repeat(5 - num);
     }
 
+    async function fetchCurrentUser() {
+        try {
+            const res = await fetch('/api/me', { credentials: "include" });
+            if (res.ok) {
+                const data = await res.json();
+                setCurrentUsername(data.username || null);
+            }
+        } catch (error) {
+            console.error('Error fetching current user:', error);
+        }
+    }
+
     async function fetchReviews() {
         try {
-            const response = await fetch('http://localhost:5000/api/reviews');
-            const data = await response.json();
-            
-            console.log('Fetched reviews:', data);
-            console.log('Current restaurant:', restaurant?.name);
+            const response = await fetch('/api/reviews', {
+                credentials: "include"
+            });
 
+            const data = await response.json();
+
+            // Filter by restaurant if provided
             const parsed = data
                 .filter(r => !restaurant || r.store === restaurant.name)
                 .map(r => ({
                     _id: r._id,
-                    name: r.name,
-                    logo: r.logo,
+                    username: r.username,   // author
                     store: r.store,
                     comment: r.comment,
                     ratingNumber: r.rating,
                     rating: toStars(r.rating)
                 }));
 
-            console.log('Filtered reviews:', parsed);
             setReviews(parsed);
         } catch (error) {
             console.error('Error fetching reviews:', error);
@@ -42,14 +56,13 @@ function ReviewDisplay({ restaurant, showHeader = true }) {
 
     async function submitReview(e) {
         e.preventDefault();
-        
-        if (!name || !comment) {
+
+        if (!comment) {
             alert('Please fill in all fields');
             return;
         }
 
         const payload = {
-            name,
             store: restaurant.name,
             comment,
             rating
@@ -57,24 +70,26 @@ function ReviewDisplay({ restaurant, showHeader = true }) {
 
         try {
             const url = editingId
-                ? `http://localhost:5000/api/reviews/${editingId}`
-                : 'http://localhost:5000/api/reviews';
+                ? `/api/reviews/${editingId}`
+                : '/api/reviews';
             const method = editingId ? 'PATCH' : 'POST';
 
             const response = await fetch(url, {
                 method,
-                headers: { 'Content-Type': 'application/json' },
+                credentials: "include",   // REQUIRED for Flask session auth
+                headers: {
+                    "Content-Type": "application/json"
+                },
                 body: JSON.stringify(payload)
             });
 
             const result = await response.json();
-            
+
             if (response.ok) {
-                setName('');
                 setComment('');
                 setRating(5);
                 setEditingId(null);
-                await fetchReviews(); // Wait for reviews to refresh
+                await fetchReviews(); // refresh reviews
                 alert(editingId ? 'Review updated!' : 'Review submitted!');
             } else {
                 console.error('Error submitting review:', result);
@@ -86,52 +101,50 @@ function ReviewDisplay({ restaurant, showHeader = true }) {
         }
     }
 
-    // Edit button function - disabled
-    // function startEdit(review) {
-    //     setEditingId(review._id);
-    //     setName(review.name);
-    //     setComment(review.comment);
-    //     setRating(review.ratingNumber || 5);
-    // }
+    // Start editing a review (only allowed if current user is author)
+    function startEdit(review) {
+        if (!currentUsername) {
+            alert('You must be logged in to edit a review.');
+            return;
+        }
+        if (review.username !== currentUsername) {
+            alert('You can only edit your own reviews.');
+            return;
+        }
+        setEditingId(review._id);
+        setComment(review.comment);
+        setRating(review.ratingNumber || 5);
+    }
 
     function cancelEdit() {
         setEditingId(null);
-        setName('');
         setComment('');
         setRating(5);
     }
 
-
-
     useEffect(() => {
+        fetchCurrentUser();
         fetchReviews();
+        // re-fetch when restaurant changes
     }, [restaurant]);
 
     return (
         <div className="review-container-placer">
             {/* Restaurant Logo */}
-                    {showHeader && restaurant && (
-                        <div className="restaurant-header">
-                            <img 
-                                src={restaurant.icon}
-                                alt={`${restaurant.name} logo`}
-                                className="restaurant-logo"
-                                onError={(e) => e.target.style.display = 'none'}
-                            />
-                            <h3>{restaurant.name}</h3>
-                        </div>
-                    )}
-            
-            
-            {/* Add Review Form */}
+            {showHeader && restaurant && (
+                <div className="restaurant-header">
+                    <img 
+                        src={restaurant.icon}
+                        alt={`${restaurant.name} logo`}
+                        className="restaurant-logo"
+                        onError={(e) => e.target.style.display = 'none'}
+                    />
+                    <h3>{restaurant.name}</h3>
+                </div>
+            )}
+
+            {/* Add / Edit Review Form */}
             <form onSubmit={submitReview} className="review-form">
-                <input 
-                    type="text" 
-                    placeholder="Your name" 
-                    value={name} 
-                    onChange={e => setName(e.target.value)}
-                    required
-                />
                 <select value={rating} onChange={e => setRating(Number(e.target.value))}>
                     <option value={5}>★★★★★</option>
                     <option value={4}>★★★★☆</option>
@@ -165,14 +178,35 @@ function ReviewDisplay({ restaurant, showHeader = true }) {
                     ) : (
                         reviews.map((r) => (
                             <div className="review" key={r._id}>
-                                <h4>{r.name}</h4>
+                                <h4>{r.username}</h4>
                                 <p>{r.comment}</p>
                                 <span className="rating">{r.rating}</span>
-                                {/* Edit button - disabled
-                                <button className="edit-btn" type="button" onClick={() => startEdit(r)} title="Edit review">
-                                    ✏️
-                                </button>
-                                */}
+                                {/* show edit button only for author */}
+                                {currentUsername === r.username && (
+                                    <>
+                                        <button className="edit-btn" type="button" onClick={() => startEdit(r)} title="Edit review">
+                                            ✏️
+                                        </button>
+                                        <button className="delete-btn" type="button" onClick={async () => {
+                                            if (!confirm('Delete this review?')) return;
+                                            try {
+                                                const res = await fetch(`/api/reviews/${r._id}`, {
+                                                    method: 'DELETE',
+                                                    credentials: 'include'
+                                                });
+                                                if (res.ok) {
+                                                    await fetchReviews();
+                                                } else {
+                                                    const err = await res.json();
+                                                    alert('Failed to delete: ' + (err.message || 'Unknown'));
+                                                }
+                                            } catch (err) {
+                                                console.error('Error deleting review:', err);
+                                                alert('Network error while deleting');
+                                            }
+                                        }}>🗑️</button>
+                                    </>
+                                )}
                             </div>
                         ))
                     )}
