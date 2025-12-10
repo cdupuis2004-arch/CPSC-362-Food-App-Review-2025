@@ -1,4 +1,4 @@
-# 🌐 Tuffy's Belly
+# 🐘 Tuffy's Belly
 
 ## ⚙️ Setup Backend
 
