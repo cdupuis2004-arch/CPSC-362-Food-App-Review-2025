@@ -2,10 +2,6 @@
 
 ## Simple Setup
 
-1. 📦 Install project dependencies:
-
-## Advanced Setup
-
 1. ⚙️ Run setup.bat
 2. ⚙️ Run run-local.bat
 
@@ -13,6 +9,8 @@
    After running, you’ll see a line like:
    `➜ Local: http://localhost:5173/`
    Click that link to view the app
+
+## Advanced Setup
 
 1. 📦 Install project dependencies:
    ```bash
