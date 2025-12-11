@@ -1,6 +1,16 @@
 # 🐘 Tuffy's Belly
 
-## Simple Setup
+## Before starting, make sure:
+
+1. You have **Python 3.10+ installed**.
+   ```bash
+   python --version
+
+2. You have **cloned the repository**:
+   ```bash
+   git clone https://github.com/cdupuis2004-arch/CPSC-362-Food-App-Review-2025.git
+
+### Simple Setup
 
 1. ⚙️ Run setup.bat
 2. ⚙️ Run run-local.bat
@@ -10,7 +20,7 @@
    `➜ Local: http://localhost:5173/`
    Click that link to view the app
 
-## Advanced Setup
+### Advanced Setup
 
 1. 📦 Install project dependencies:
    ```bash
