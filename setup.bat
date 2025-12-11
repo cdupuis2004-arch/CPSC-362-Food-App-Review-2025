@@ -1,5 +1,5 @@
 @echo off
-Setting up Tuffy's Belly...
+echo Setting up Tuffy's Belly...
 
 echo Creating Python virtual environment...
 python -m venv .venv
@@ -11,14 +11,13 @@ echo Installing Python dependencies...
 pip install -r requirements.txt
 
 echo Deactivating virtual environment...
-deactivate
+call deactivate
 
 echo.
-echo Moving to frontend directory...
-cd frontend
-
 echo Installing frontend dependencies...
-npm install
+pushd frontend
+call npm install || echo Frontend install failed!
+popd
 
 echo.
 echo ===========================================
