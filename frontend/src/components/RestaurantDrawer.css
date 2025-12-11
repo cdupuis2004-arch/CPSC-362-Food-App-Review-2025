@@ -14,6 +14,12 @@
   overflow-y: auto;
 }
 
+.light-mode .restaurant-drawer {
+  background: #ffffff;
+  box-shadow: 2px 0 12px rgba(0,0,0,0.15);
+  color: #000;
+}
+
 .restaurant-drawer.open {
   transform: translateX(0);
 }
@@ -59,6 +65,17 @@
   padding-top: 10px;
 }
 
+.light-mode .drawer-section h2,
+.light-mode .drawer-section h3,
+.light-mode .drawer-section h4,
+.light-mode .drawer-section p {
+  color: #000;
+}
+
+.light-mode .drawer-section {
+  color: #333;
+}
+
 /* Close Button */
 .drawer-close {
   display: flex;
@@ -100,6 +117,10 @@
   color: #fff;
 }
 
+.light-mode .drawer-title {
+  color: #000;
+}
+
 /* Carousel */
 .reviews-carousel {
   margin-top: 8px;
@@ -109,6 +130,10 @@
 .reviews-carousel .no-reviews {
   padding: 12px;
   color: #777;
+}
+
+.light-mode .reviews-carousel .no-reviews {
+  color: #555;
 }
 
 .carousel-track {
@@ -136,6 +161,12 @@
   border-radius: 8px;
   padding: 12px;
   box-shadow: 0 2px 8px rgba(0,0,0,0.3);
+}
+
+.light-mode .carousel-slide {
+  background: #f5f5f5;
+  color: #000;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
 }
 
 .carousel-slide h4 {
