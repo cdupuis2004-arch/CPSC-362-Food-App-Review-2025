@@ -3,7 +3,4 @@ from app import create_app
 # Start the app from here
 if __name__ == "__main__":
     app = create_app()
-    app.run()
-
-    # Use this for hosting
-    #app.run('0.0.0.0', 5000)
+    app.run(debug=True)  # turn on debug mode for automatic reload

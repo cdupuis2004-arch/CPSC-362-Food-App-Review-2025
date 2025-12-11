@@ -47,7 +47,7 @@ body::-webkit-scrollbar {
 
 .right-pane {
   right: 40px;                 /* aligns with your app-container padding */
-  margin: 10px;              /* 20px breathing room left/right */
+  margin: 15px;              /* 20px breathing room left/right */
 
   width: 110%;
 
@@ -79,7 +79,7 @@ body::-webkit-scrollbar {
 .content-split {
   display: grid;
   grid-template-columns: 0.35fr 0.9fr;
-  gap: 20px;
+  gap: 0px;
   padding: 20px;
   box-sizing: border-box;
 }
@@ -151,7 +151,7 @@ body::-webkit-scrollbar {
   position: fixed;
   top: 20px;
   left: 20px;
-  z-index: 2000;
+  z-index: 20;
   background: #333;
   border: 2px solid #555;
   color: #fff;
@@ -195,4 +195,144 @@ body::-webkit-scrollbar {
 
 .app-container.light-mode .theme-toggle:hover {
   background: #d0d0d0;
+}
+
+/* Login Button */
+.login-button {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  z-index: 3000;
+  background: #333;
+  border: 2px solid #555;
+  color: #fff;
+  font-size: 14px;
+  font-weight: 600;
+  padding: 10px 16px;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+}
+
+.login-button:hover {
+  background: #444;
+  transform: scale(1.05);
+}
+
+/* Login Drawer Panel */
+.login-drawer-overlay {
+position: fixed;
+top: 0;
+left: 0;
+width: 100vw;
+height: 100vh;
+background: rgba(0,0,0,0.45);
+display: flex;
+justify-content: center;
+align-items: center;
+z-index: 3000;
+opacity: 0;
+animation: fadeIn 0.25s ease forwards;
+}
+
+
+.login-drawer {
+background: #fff;
+width: 380px;
+max-width: 90%;
+padding: 28px;
+border-radius: 16px;
+box-shadow: 0 8px 26px rgba(0,0,0,0.25);
+animation: popIn 0.25s ease forwards;
+}
+
+
+@keyframes fadeIn {
+from { opacity: 0; }
+to { opacity: 1; }
+}
+
+
+@keyframes popIn {
+from {
+transform: scale(0.85);
+opacity: 0;
+}
+to {
+transform: scale(1);
+opacity: 1;
+}
+}
+
+
+.login-drawer h2 {
+margin-top: 0;
+font-size: 22px;
+font-weight: 600;
+text-align: center;
+}
+
+
+.login-drawer input {
+width: 100%;
+padding: 12px;
+margin: 10px 0;
+border-radius: 8px;
+border: 1px solid #ccc;
+font-size: 14px;
+box-sizing: border-box;
+}
+
+
+.login-drawer button {
+width: 100%;
+padding: 12px;
+margin-top: 10px;
+background: #333;
+color: white;
+border: none;
+border-radius: 8px;
+cursor: pointer;
+font-size: 15px;
+font-weight: 600;
+transition: 0.25s ease;
+}
+
+
+.login-drawer button:hover {
+background: #444;
+transform: scale(1.03);
+}
+
+
+.logout-button {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  z-index: 3000;
+  background: #333;
+  border: 2px solid #555;
+  color: #fff;
+  font-size: 14px;
+  font-weight: 600;
+  padding: 10px 16px;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+}
+.logout-button:hover {
+  background: #444;
+  transform: scale(1.05);
+}
+
+.user-display {
+  position: fixed;
+  top: 20px;
+  right: 100px;
+  z-index: 3000;
+  font-size: 14px;
+  font-weight: 600;
+  padding: 10px 16px;
 }
