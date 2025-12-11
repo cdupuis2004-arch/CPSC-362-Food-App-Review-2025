@@ -1,5 +1,7 @@
 import { useState } from 'react';
 
+const API_URL = import.meta.env.VITE_API_URL;
+
 export default function LoginDrawer({ open, onClose, setUser, isDarkMode = true }) {
   const [isSignup, setIsSignup] = useState(false);
   const [username, setUsername] = useState('');
@@ -11,7 +13,7 @@ export default function LoginDrawer({ open, onClose, setUser, isDarkMode = true 
   const handleSignup = async (e) => {
     e.preventDefault();
     try {
-      const res = await fetch('/api/signup', {
+      const res = await fetch(`${API_URL}/api/signup`, {
         method: 'POST',
         credentials: 'include',
         headers: { 'Content-Type': 'application/json' },
@@ -37,7 +39,7 @@ export default function LoginDrawer({ open, onClose, setUser, isDarkMode = true 
   const handleLogin = async (e) => {
     e.preventDefault();
     try {
-      const res = await fetch('/api/login', {
+      const res = await fetch(`${API_URL}/api/login`, {
         method: 'POST',
         credentials: 'include',
         headers: { 'Content-Type': 'application/json' },

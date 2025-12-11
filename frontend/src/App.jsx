@@ -6,6 +6,8 @@ import RestaurantDrawer from "./components/RestaurantDrawer";
 import LoginDrawer from "./components/LoginDrawer";
 import "./App.css";
 
+const API_URL = import.meta.env.VITE_API_URL;
+
 function App() {
   const [selectedRestaurant, setSelectedRestaurant] = useState(null);
   const [isDarkMode, setIsDarkMode] = useState(true);
@@ -14,7 +16,7 @@ function App() {
 
   // restore session on mount
   useEffect(() => {
-    fetch('/api/me', { credentials: 'include' })
+    fetch(`${API_URL}/api/me`, { credentials: 'include' })
       .then(res => res.json())
       .then(data => {
         if (data && data.username) setUser({ username: data.username, email: data.email });
@@ -31,7 +33,7 @@ function App() {
 
   const handleLogout = async () => {
     try {
-      const res = await fetch('/api/logout', { method: 'POST', credentials: 'include' });
+      const res = await fetch(`${API_URL}/api/logout`, { method: 'POST', credentials: 'include' });
       if (res.ok) {
         setUser(null);
         alert('Logged out');

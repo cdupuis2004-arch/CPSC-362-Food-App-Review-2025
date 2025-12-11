@@ -1,6 +1,9 @@
+import sys, os
+sys.path.append(os.path.dirname(os.path.abspath(__file__)))
+
 from app import create_app
 
-# Start the app from here
+app = create_app()
+
 if __name__ == "__main__":
-    app = create_app()
-    app.run(debug=True)  # turn on debug mode for automatic reload
+    app.run()

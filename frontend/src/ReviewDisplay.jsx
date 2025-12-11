@@ -1,6 +1,8 @@
 import {useEffect, useState} from "react";
 import './ReviewDisplay.css'
 
+const API_URL = import.meta.env.VITE_API_URL;
+
 function ReviewDisplay({ restaurant, showHeader = true, showReviewForm = true }) {
     const [reviews, setReviews] = useState([]);
     const [displayName, setDisplayName] = useState(''); // public display name per review
@@ -15,7 +17,7 @@ function ReviewDisplay({ restaurant, showHeader = true, showReviewForm = true })
 
     async function fetchCurrentUser() {
         try {
-            const res = await fetch('/api/me', { credentials: "include" });
+            const res = await fetch(`${API_URL}/api/me`, { credentials: "include" });
             if (res.ok) {
                 const data = await res.json();
                 setCurrentUsername(data.username || null);
@@ -30,7 +32,7 @@ function ReviewDisplay({ restaurant, showHeader = true, showReviewForm = true })
 
     async function fetchReviews() {
         try {
-            const url = '/api/reviews' + (restaurant ? `?store=${encodeURIComponent(restaurant.name)}` : '');
+            const url = `${API_URL}/api/reviews` + (restaurant ? `?store=${encodeURIComponent(restaurant.name)}` : '');
             const response = await fetch(url, { credentials: "include" });
             const data = await response.json();
             const parsed = data.map(r => ({
@@ -70,7 +72,7 @@ function ReviewDisplay({ restaurant, showHeader = true, showReviewForm = true })
         };
 
         try {
-            const url = editingId ? `/api/reviews/${editingId}` : '/api/reviews';
+            const url = editingId ? `${API_URL}/api/reviews/${editingId}` : `${API_URL}/api/reviews`;
             const method = editingId ? 'PATCH' : 'POST';
             const res = await fetch(url, {
                 method,
@@ -113,7 +115,7 @@ function ReviewDisplay({ restaurant, showHeader = true, showReviewForm = true })
     async function deleteReview(id) {
         if (!window.confirm('Delete this review?')) return;
         try {
-            const res = await fetch(`/api/reviews/${id}`, {
+            const res = await fetch(`${API_URL}/api/reviews/${id}`, {
                 method: 'DELETE',
                 credentials: 'include'
             });

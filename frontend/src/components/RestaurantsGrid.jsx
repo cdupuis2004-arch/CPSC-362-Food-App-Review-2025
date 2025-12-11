@@ -2,6 +2,8 @@ import { useEffect, useState } from "react";
 import initialRestaurants from "../data/restaurants.json";
 import './RestaurantsGrid.css'
 
+const API_URL = import.meta.env.VITE_API_URL;
+
 export default function RestaurantsGrid({ onSelect, isDarkMode = true }) {
   // Save the list here to update it later
   const [restaurants, setRestaurants] = useState(initialRestaurants);
@@ -9,7 +11,7 @@ export default function RestaurantsGrid({ onSelect, isDarkMode = true }) {
   useEffect(() => {
     async function fetchRatings() {
       try {
-        const res = await fetch('/api/ratings');
+        const res = await fetch(`${API_URL}/api/ratings`);
         if (!res.ok) {
           console.error("Failed to fetch ratings");
           return;

@@ -2,6 +2,8 @@ import ReviewDisplay from '../ReviewDisplay';
 import { useEffect, useState, useRef } from 'react';
 import './RestaurantDrawer.css';
 
+const API_URL = import.meta.env.VITE_API_URL;
+
 export default function RestaurantDrawer({ restaurant, onClose, isDarkMode = true, user = null }) {
   const [allReviews, setAllReviews] = useState([]);
   const trackRef = useRef(null);
@@ -9,7 +11,8 @@ export default function RestaurantDrawer({ restaurant, onClose, isDarkMode = tru
 
   async function loadReviews() {
     try {
-      const url = '/api/reviews' + (restaurant ? `?store=${encodeURIComponent(restaurant.name)}` : '');
+      console.log({API_URL});
+      const url = `${API_URL}/api/reviews` + (restaurant ? `?store=${encodeURIComponent(restaurant.name)}` : '');
       const res = await fetch(url, { credentials: 'include' });
       const data = await res.json();
       // map to display fields: display_name (public), rating stars
