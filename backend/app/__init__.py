@@ -17,7 +17,7 @@ def create_app():
 
     # Allow credentials and explicitly whitelist React origin.
     # Add origins you use in dev if not using proxy (http://localhost:3000 is common).
-    CORS(app, supports_credentials=True, origins=["http://localhost:3000", "http://127.0.0.1:3000"])
+    CORS(app, supports_credentials=True, origins=["http://localhost:3000", "http://127.0.0.1:3000", "https://tuffys-belly.vercel.app/"])
 
     from app.routes import bp
     app.register_blueprint(bp, url_prefix='/api')
