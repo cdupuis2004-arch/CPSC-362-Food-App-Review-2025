@@ -1,3 +1,4 @@
+
 # 🐘 Tuffy's Belly
 
 ## Before starting, make sure:
@@ -22,6 +23,7 @@
 
 ### Advanced Setup
 
+⚙️ Setup Backend
 1. 📦 Install project dependencies:
    ```bash
     pip install -r requirements.txt
@@ -30,7 +32,7 @@
    ```bash
    python backend/main.py
 
-## ⚙️ Setup Frontend
+⚙️ Setup Frontend
 
 1. 📦 Install node dependencies:
    ```bash
