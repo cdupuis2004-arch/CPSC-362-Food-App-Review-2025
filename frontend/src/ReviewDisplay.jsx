@@ -1,7 +1,7 @@
 import {useEffect, useState} from "react";
 import './ReviewDisplay.css'
 
-function ReviewDisplay({ restaurant, showHeader = true }) {
+function ReviewDisplay({ restaurant, showHeader = true, showReviewForm = true }) {
     const [reviews, setReviews] = useState([]);
     const [displayName, setDisplayName] = useState(''); // public display name per review
     const [comment, setComment] = useState('');
@@ -152,34 +152,51 @@ function ReviewDisplay({ restaurant, showHeader = true }) {
             )}
 
             {/* Add/Edit review form */}
-            <form onSubmit={submitReview} className="review-form">
-                <input
-                    type="text"
-                    placeholder="Your display name"
-                    value={displayName}
-                    onChange={e => setDisplayName(e.target.value)}
-                    required
-                />
-                <select value={rating} onChange={e => setRating(Number(e.target.value))}>
-                    <option value={5}>★★★★★</option>
-                    <option value={4}>★★★★☆</option>
-                    <option value={3}>★★★☆☆</option>
-                    <option value={2}>★★☆☆☆</option>
-                    <option value={1}>★☆☆☆☆</option>
-                </select>
-                <textarea
-                    placeholder="Write your review..."
-                    value={comment}
-                    onChange={e => setComment(e.target.value)}
-                    required
-                />
-                <div className="form-actions">
-                    {editingId && (
-                        <button type="button" className="secondary" onClick={cancelEdit}>Cancel</button>
-                    )}
-                    <button type="submit">{editingId ? 'Save Changes' : 'Submit Review'}</button>
-                </div>
-            </form>
+            {showReviewForm && (
+                <form onSubmit={submitReview} className="review-form">
+                    <input
+                        type="text"
+                        placeholder="Your display name"
+                        value={displayName}
+                        onChange={e => setDisplayName(e.target.value)}
+                        required
+                    />
+
+                    <select
+                        value={rating}
+                        onChange={e => setRating(Number(e.target.value))}
+                    >
+                        <option value={5}>★★★★★</option>
+                        <option value={4}>★★★★☆</option>
+                        <option value={3}>★★★☆☆</option>
+                        <option value={2}>★★☆☆☆</option>
+                        <option value={1}>★☆☆☆☆</option>
+                    </select>
+
+                    <textarea
+                        placeholder="Write your review..."
+                        value={comment}
+                        onChange={e => setComment(e.target.value)}
+                        required
+                    />
+
+                    <div className="form-actions">
+                        {editingId && (
+                            <button
+                                type="button"
+                                className="secondary"
+                                onClick={cancelEdit}
+                            >
+                                Cancel
+                            </button>
+                        )}
+
+                        <button type="submit">
+                            {editingId ? "Save Changes" : "Submit Review"}
+                        </button>
+                    </div>
+                </form>
+            )}
 
             {/* Reviews list */}
             <div className="reviewContainer">

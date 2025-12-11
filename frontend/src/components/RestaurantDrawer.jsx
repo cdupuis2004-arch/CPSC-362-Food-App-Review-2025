@@ -58,6 +58,7 @@ export default function RestaurantDrawer({ restaurant, onClose, isDarkMode = tru
       try {
         track.scrollTo({ left, behavior: 'smooth' });
       } catch (e) {
+        console.log(e)
         track.scrollLeft = left;
       }
     }
@@ -101,7 +102,7 @@ export default function RestaurantDrawer({ restaurant, onClose, isDarkMode = tru
               <div className="no-reviews" style={{ color: isDarkMode ? '#777' : '#999' }}>No reviews currently</div>
             ) : (
               <div className="carousel-track" ref={trackRef} style={{ display: 'flex', gap: 12, overflowX: 'auto', padding: '8px 4px' }}>
-                {carouselItems.map((r, idx) => (
+                {carouselItems.map((r) => (
                   <div key={r._id} className="carousel-slide" style={{
                     minWidth: 400,
                     maxWidth: 400,
@@ -125,11 +126,12 @@ export default function RestaurantDrawer({ restaurant, onClose, isDarkMode = tru
         {user ? (
           <section className="drawer-section">
             <h3 style={{ color: isDarkMode ? '#fff' : '#333' }}>Leave a Review</h3>
-            <ReviewDisplay restaurant={restaurant} showHeader={false} />
+            <ReviewDisplay restaurant={restaurant} showHeader={false} showReviewForm={true}/>
           </section>
         ) : (
           <section className="drawer-section">
             <p style={{ color: isDarkMode ? '#aaa' : '#555' }}>Login to leave a review.</p>
+            <ReviewDisplay restaurant={restaurant} showHeader={false} showReviewForm={false}/>
           </section>
         )}
 
