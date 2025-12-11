@@ -1,6 +1,18 @@
 # 🐘 Tuffy's Belly
 
-## ⚙️ Setup Backend
+## Simple Setup
+
+1. 📦 Install project dependencies:
+
+## Advanced Setup
+
+1. ⚙️ Run setup.bat
+2. ⚙️ Run run-local.bat
+
+3. That's It!
+   After running, you’ll see a line like:
+   `➜ Local: http://localhost:5173/`
+   Click that link to view the app
 
 1. 📦 Install project dependencies:
    ```bash
@@ -20,8 +32,3 @@
 2. Run React + Vite
    ```bash
    npm run dev
-
-4. 🌐 Open the app in your browser
-   After running, you’ll see a line like:
-   `➜ Local: http://localhost:5173/`
-   Click that link to view the app
